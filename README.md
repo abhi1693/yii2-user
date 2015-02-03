@@ -8,7 +8,7 @@ Yii2-User provides a web interface for advanced access control, user management 
 
 > **NOTE:** Module is not yet in alpha version. Use it on your own risk. Some features are missing. Anything can be changed at any time.
 
-**Works best with [Yii2 app advanced startup kit](https://github.com/abhi1693/yii2-app-advanced-startup-kit)**
+**Works only with [Yii2 app advanced startup kit](https://github.com/abhi1693/yii2-app-advanced-startup-kit)**
 
 - Ability to properly install the app
 - Configurable Settings
