@@ -1,0 +1,26 @@
+{
+  "name": "abhi1693/yii2-user",
+  "description": "Yii2 user registration and authentication module",
+  "keywords": [
+    "user",
+    "module",
+    "yii"
+  ],
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Abhimanyu Saharan",
+      "email": "abhimanyu@teamvulcans.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "abhimanyu\\user\\": ""
+    }
+  }
+}
