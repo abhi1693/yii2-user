@@ -27,6 +27,8 @@
 	{
 		const STATUS_DELETED = 0;
 		const STATUS_ACTIVE = 1;
+		/** @var string Plain password. Used for model validation. */
+		public $password;
 
 		/**
 		 * @inheritdoc
@@ -150,6 +152,15 @@
 				//password
 				['password', 'required', 'on' => ['register']],
 				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
+			];
+		}
+
+		public function attributeLabels()
+		{
+			return [
+				'username'      => 'Username',
+				'password_hash' => 'Password',
+				'email'         => 'Email'
 			];
 		}
 
