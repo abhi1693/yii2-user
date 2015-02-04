@@ -27,6 +27,7 @@
 	{
 		const STATUS_DELETED = 0;
 		const STATUS_ACTIVE = 1;
+
 		/** @var string Plain password. Used for model validation. */
 		public $password;
 
@@ -124,7 +125,7 @@
 		public function scenarios()
 		{
 			return [
-				'register' => ['username', 'email', 'password'],
+				'register' => ['username', 'email', 'password', 'password_confirm'],
 				'create'   => ['username', 'email', 'password']
 			];
 		}
@@ -137,7 +138,7 @@
 			return [
 				// username
 				['username', 'required', 'on' => ['register', 'create']],
-				['username', 'match', 'pattern' => '/^[a-zA-Z0-9]\w+$/'],
+				['username', 'match', 'pattern' => '/^[a-zA-Z0-9_]\w+$/'],
 				['username', 'string', 'min' => 3, 'max' => 25],
 				['username', 'unique'],
 				['username', 'trim'],
@@ -149,9 +150,13 @@
 				['email', 'unique'],
 				['email', 'trim'],
 
-				//password
+				// password
 				['password', 'required', 'on' => ['register']],
 				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
+
+				// password confirm
+				['password_confirm', 'required', 'on' => ['register']],
+				['password_confirm', 'compare', 'compareAttribute', 'password']
 			];
 		}
 
