@@ -173,14 +173,6 @@
 		/**
 		 * @inheritdoc
 		 */
-		public function getId()
-		{
-			return $this->getPrimaryKey();
-		}
-
-		/**
-		 * @inheritdoc
-		 */
 		public function validateAuthKey($authKey)
 		{
 			return $this->getAuthKey() === $authKey;
@@ -250,5 +242,23 @@
 		public function setPassword($password)
 		{
 			$this->password_hash = Yii::$app->security->generatePasswordHash($password);
+		}
+
+		/**
+		 * Gets user profile
+		 *
+		 * @return Profile
+		 */
+		public function getProfile()
+		{
+			return static::findOne(['uid' => $this->getId()]);
+		}
+
+		/**
+		 * @inheritdoc
+		 */
+		public function getId()
+		{
+			return $this->getPrimaryKey();
 		}
 	}
