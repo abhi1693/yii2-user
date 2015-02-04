@@ -5,6 +5,7 @@
 	use Yii;
 	use yii\behaviors\TimestampBehavior;
 	use yii\db\ActiveRecord;
+	use yii\db\Expression;
 	use yii\web\IdentityInterface;
 
 	/**
@@ -184,9 +185,10 @@
 				'timestamp' => [
 					'class'      => TimestampBehavior::className(),
 					'attributes' => [
-						self::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-						self::EVENT_BEFORE_UPDATE => ['updated_at'],
+						ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+						ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
 					],
+					'value'      => new Expression('NOW()')
 				],
 			];
 		}
