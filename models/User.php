@@ -30,6 +30,7 @@
 
 		/** @var string Plain password. Used for model validation. */
 		public $password;
+		public $password_confirm;
 
 		/**
 		 * @inheritdoc
@@ -156,7 +157,7 @@
 
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register']],
-				['password_confirm', 'compare', 'compareAttribute', 'password']
+				['password_confirm', 'compare', 'compareAttribute' => 'password']
 			];
 		}
 
