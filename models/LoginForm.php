@@ -54,22 +54,6 @@
 		}
 
 		/**
-		 * Logs in a user using the provided username and password.
-		 *
-		 * @param bool $validate
-		 *
-		 * @return boolean whether the user is logged in successfully
-		 */
-		public function login($validate = TRUE)
-		{
-			if (!$validate || $this->validate()) {
-				return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-			} else {
-				return FALSE;
-			}
-		}
-
-		/**
 		 * Finds user by [[username]]
 		 *
 		 * @return User|null
@@ -81,5 +65,19 @@
 			}
 
 			return $this->_user;
+		}
+
+		/**
+		 * Logs in a user using the provided username and password.
+		 *
+		 * @return boolean whether the user is logged in successfully
+		 */
+		public function login()
+		{
+			if ($this->validate()) {
+				return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+			} else {
+				return FALSE;
+			}
 		}
 	}
