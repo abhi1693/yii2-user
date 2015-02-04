@@ -23,8 +23,14 @@
 		public function rules()
 		{
 			return [
+				// uid
 				['uid', 'integer'],
+
+				// first name & last name
 				[['name_first', 'name_last'], 'string', 'max' => 100],
+				[['name_first', 'name_last'], 'required'],
+
+				// sex
 				['sex', 'integer', 'max' => 1]
 			];
 		}
