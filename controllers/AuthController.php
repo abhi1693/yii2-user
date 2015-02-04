@@ -2,7 +2,7 @@
 
 	namespace abhimanyu\user\controllers;
 
-	use abhimanyu\user\models\LoginForm;
+	use abhimanyu\user\models\AccountLoginForm;
 	use Yii;
 	use yii\web\Controller;
 	use yii\web\Response;
@@ -16,9 +16,7 @@
 			if (!Yii::$app->user->isGuest)
 				return $this->redirect(Yii::$app->user->returnUrl);
 
-			// todo show register form link if enabled
-
-			$model = new LoginForm();
+			$model = new AccountLoginForm();
 
 			if ($model->load(Yii::$app->request->post())) {
 				if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
@@ -31,6 +29,8 @@
 					return $this->redirect(Yii::$app->user->returnUrl);
 				}
 			}
+
+			// todo show register form link if enabled
 
 			return $this->render('login', ['model' => $model]);
 		}

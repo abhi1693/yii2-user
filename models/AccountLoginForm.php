@@ -4,16 +4,18 @@
 
 	use Yii;
 	use yii\base\Model;
+	use yii\db\ActiveQuery;
 
 	/**
 	 * LoginForm is the model behind the login form.
 	 */
-	class LoginForm extends Model
+	class AccountLoginForm extends Model
 	{
 		public $username;
 		public $password;
 		public $rememberMe = FALSE;
-		private $_user = FALSE;
+
+		protected $identity;
 
 		/**
 		 * @return array the validation rules.
@@ -46,25 +48,22 @@
 		public function validatePassword()
 		{
 			if (!$this->hasErrors()) {
-				$user = $this->getUser();
-				if (!$user || !$user->validatePassword($this->password)) {
+				if ($this->identity === NULL || !Yii::$app->getSecurity()->validatePassword($this->password, $this->identity->password)) {
 					$this->addError('password', 'Incorrect username or password.');
 				}
 			}
 		}
 
-		/**
-		 * Finds user by [[username]]
-		 *
-		 * @return User|null
-		 */
-		public function getUser()
+		public function beforeValidate()
 		{
-			if ($this->_user === FALSE) {
-				$this->_user = User::findByUsername($this->username);
+			if (parent::beforeValidate()) {
+				$query          = new ActiveQuery(['modelClass' => Yii::$app->getUser()->identityClass]);
+				$this->identity = $query->where(['username' => $this->username])->one();
+
+				return TRUE;
 			}
 
-			return $this->_user;
+			return FALSE;
 		}
 
 		/**
@@ -75,7 +74,7 @@
 		public function login()
 		{
 			if ($this->validate()) {
-				return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+				return Yii::$app->user->login($this->identity, $this->rememberMe ? 3600 * 24 * 30 : 0);
 			} else {
 				return FALSE;
 			}
