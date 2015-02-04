@@ -1,5 +1,5 @@
 <?php
-	/* @var $model \abhimanyu\user\models\LoginForm */
+	/* @var $model \abhimanyu\user\models\AccountLoginForm */
 ?>
 <div class="container" style="text-align: center">
 	<div class="panel panel-default" id="login-form" style="max-width: 300px;margin: 0 auto 20px;text-align: left">
@@ -7,7 +7,7 @@
 		<div class="panel-body">
 			<?php $form = \yii\widgets\ActiveForm::begin([
 				                                             'id'                   => 'login-form',
-				                                             'enableAjaxValidation' => TRUE
+				                                             'enableAjaxValidation' => FALSE
 			                                             ]); ?>
 
 			<div class="form-group">

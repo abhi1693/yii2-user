@@ -8,6 +8,8 @@
 
 	/**
 	 * LoginForm is the model behind the login form.
+	 *
+	 * todo fix ajax validation
 	 */
 	class AccountLoginForm extends Model
 	{
