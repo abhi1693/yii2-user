@@ -217,7 +217,7 @@
 		public function beforeSave($insert)
 		{
 			if ($insert) {
-				$this->auth_key = $this->generateAuthKey();
+				$this->generateAuthKey();
 			}
 
 			if ($this->password)
