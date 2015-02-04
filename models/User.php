@@ -3,177 +3,103 @@
 	namespace abhimanyu\user\models;
 
 	use Yii;
+	use yii\base\NotSupportedException;
 	use yii\behaviors\TimestampBehavior;
 	use yii\db\ActiveRecord;
 	use yii\db\Expression;
 	use yii\web\IdentityInterface;
 
 	/**
-	 * This is the model class for table "user".
+	 * User model
 	 *
-	 * The followings are the available columns in table 'user':
-	 *
-	 * @property integer      $id
-	 * @property string       $username
-	 * @property string       $password
-	 * @property string       $email
-	 * @property integer      $super_admin
-	 * @property integer      $status
-	 * @property mixed        $auth_key
-	 * @property string       $created_at
-	 * @property string       $updated_at
-	 *
-	 * @author  Abhimanyu Saharan <abhimanyu@teamvulcans.com>
+	 * @property integer $id
+	 * @property string  $username
+	 * @property string  $password_hash
+	 * @property string  $password_reset_token
+	 * @property string  $email
+	 * @property string  $auth_key
+	 * @property integer $status
+	 * @property integer $created_at
+	 * @property integer $updated_at
+	 * @property string  $password write-only password
 	 */
 	class User extends ActiveRecord implements IdentityInterface
 	{
-		/**
-		 * User Status Flags
-		 */
-		const STATUS_DISABLED = 0;
-		const STATUS_ENABLED = 1;
-		const STATUS_NEED_APPROVAL = 2;
-		const STATUS_DELETED = 3;
-		public $loginUrl = ['/user/auth/login'];
+		const STATUS_DELETED = 0;
+		const STATUS_ACTIVE = 1;
 
 		/**
-		 * Finds an identity by the given ID.
-		 *
-		 * @param string|integer $id the ID to be looked for
-		 *
-		 * @return IdentityInterface the identity object that matches the given ID.
-		 * Null should be returned if such an identity cannot be found
-		 * or the identity is not in an active state (disabled, deleted, etc.)
+		 * @inheritdoc
 		 */
-		public static function findIdentity($id)
-		{
-			return static::findOne($id);
-		}
-
-		/**
-		 * Finds an identity by the given token.
-		 *
-		 * @param mixed $token the token to be looked for
-		 * @param mixed $type  the type of the token. The value of this parameter depends on the implementation.
-		 *                     For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
-		 *
-		 * @return IdentityInterface the identity object that matches the given token.
-		 * Null should be returned if such an identity cannot be found
-		 * or the identity is not in an active state (disabled, deleted, etc.)
-		 */
-		public static function findIdentityByAccessToken($token, $type = NULL)
-		{
-			static::findOne(compact('auth_key'));
-		}
-
-		/**
-		 * Finds user by username
-		 *
-		 * @param  string $username
-		 *
-		 * @return static|null
-		 */
-		public static function findByUsername($username)
-		{
-			return static::findOne(['username' => $username, 'status' => self::STATUS_ENABLED]);
-		}
-
 		public static function tableName()
 		{
 			return '{{%user}}';
 		}
 
-		public function getStatusName()
+		/**
+		 * @inheritdoc
+		 */
+		public static function findIdentity($id)
 		{
-			return self::statusList()[$this->status];
+			return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
 		}
 
 		/**
-		 * gets all available user status list
-		 *
-		 * @return array statuses
+		 * @inheritdoc
 		 */
-		public static function statusList()
+		public static function findIdentityByAccessToken($token, $type = NULL)
 		{
-			return [
-				self::STATUS_DISABLED      => 'Blocked',
-				self::STATUS_ENABLED       => 'Active',
-				self::STATUS_NEED_APPROVAL => 'Pending',
-				self::STATUS_DELETED       => 'Deleted'
-			];
+			throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
 		}
 
 		/**
-		 * Returns an ID that can uniquely identify a user identity.
+		 * Finds user by username
 		 *
-		 * @return string|integer an ID that uniquely identifies a user identity.
+		 * @param string $username
+		 *
+		 * @return static|null
 		 */
-		public function getId()
+		public static function findByUsername($username)
 		{
-			return $this->getPrimaryKey();
+			return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
 		}
 
 		/**
-		 * Returns a key that can be used to check the validity of a given identity ID.
+		 * Finds user by password reset token
 		 *
-		 * The key should be unique for each individual user, and should be persistent
-		 * so that it can be used to check the validity of the user identity.
+		 * @param string $token password reset token
 		 *
-		 * The space of such keys should be big enough to defeat potential identity attacks.
-		 *
-		 * This is required if [[User::enableAutoLogin]] is enabled.
-		 *
-		 * @return string a key that is used to check the validity of a given identity ID.
-		 * @see validateAuthKey()
+		 * @return static|null
 		 */
-		public function getAuthKey()
+		public static function findByPasswordResetToken($token)
 		{
-			return $this->auth_key;
+			if (!static::isPasswordResetTokenValid($token)) {
+				return NULL;
+			}
+
+			return static::findOne([
+				                       'password_reset_token' => $token,
+				                       'status'               => self::STATUS_ACTIVE,
+			                       ]);
 		}
 
 		/**
-		 * Validates the given auth key.
+		 * Finds out if password reset token is valid
 		 *
-		 * This is required if [[User::enableAutoLogin]] is enabled.
+		 * @param string $token password reset token
 		 *
-		 * @param string $authKey the given auth key
-		 *
-		 * @return boolean whether the given auth key is valid.
-		 * @see getAuthKey()
+		 * @return boolean
 		 */
-		public function validateAuthKey($authKey)
+		public static function isPasswordResetTokenValid($token)
 		{
-			return $this->auth_key == $authKey;
-		}
+			if (empty($token)) {
+				return FALSE;
+			}
+			$expire    = Yii::$app->params['user.passwordResetTokenExpire'];
+			$parts     = explode('_', $token);
+			$timestamp = (int)end($parts);
 
-		/**
-		 * Validates password
-		 *
-		 * @param  string $password password to validate
-		 *
-		 * @return boolean if password provided is valid for current user
-		 */
-		public function validatePassword($password)
-		{
-			return Yii::$app->security->validatePassword($password, $this->$password);
-		}
-
-		/**
-		 * Generates "remember me" authentication key
-		 */
-		public function generateAuthKey()
-		{
-			return $this->auth_key = md5(Yii::$app->security->generateRandomKey());
-		}
-
-		public function getIsSuperAdmin()
-		{
-			return Yii::$app->user->identity->super_admin == 1;
-		}
-
-		public function getUsername()
-		{
-			return Yii::$app->user->identity->username;
+			return $timestamp + $expire >= time();
 		}
 
 		/**
@@ -230,41 +156,82 @@
 		/**
 		 * @inheritdoc
 		 */
-		public function attributeLabels()
+		public function getId()
 		{
-			return [
-				'email'       => 'Email',
-				'username'    => 'Username',
-				'auth_key'    => 'Auth key',
-				'password'    => 'Password',
-				'status'      => 'Status',
-				'super_admin' => 'Super Admin',
-				'created_at'  => 'Created At',
-				'updated_at'  => 'Updated At'
-			];
+			return $this->getPrimaryKey();
+		}
+
+		/**
+		 * @inheritdoc
+		 */
+		public function validateAuthKey($authKey)
+		{
+			return $this->getAuthKey() === $authKey;
+		}
+
+		/**
+		 * @inheritdoc
+		 */
+		public function getAuthKey()
+		{
+			return $this->auth_key;
+		}
+
+		/**
+		 * Validates password
+		 *
+		 * @param string $password password to validate
+		 *
+		 * @return boolean if password provided is valid for current user
+		 */
+		public function validatePassword($password)
+		{
+			return Yii::$app->security->validatePassword($password, $this->password_hash);
+		}
+
+		/**
+		 * Generates new password reset token
+		 */
+		public function generatePasswordResetToken()
+		{
+			$this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+		}
+
+		/**
+		 * Removes password reset token
+		 */
+		public function removePasswordResetToken()
+		{
+			$this->password_reset_token = NULL;
 		}
 
 		public function beforeSave($insert)
 		{
 			if ($insert) {
-				$this->setAttribute('auth_key', Yii::$app->security->generateRandomString());
+				$this->auth_key = $this->generateAuthKey();
 			}
 
-			if (!empty($this->password))
-				$this->setAttribute('password', $this->setPassword($this->password));
+			if ($this->password)
+				$this->setPassword($this->password);
 
 			return parent::beforeSave($insert);
 		}
 
 		/**
+		 * Generates "remember me" authentication key
+		 */
+		public function generateAuthKey()
+		{
+			$this->auth_key = Yii::$app->security->generateRandomString();
+		}
+
+		/**
 		 * Generates password hash from password and sets it to the model
 		 *
-		 * @param string $password original password.
-		 *
-		 * @return string hashed password.
+		 * @param string $password
 		 */
 		public function setPassword($password)
 		{
-			return Yii::$app->security->generatePasswordHash($password);
+			$this->password_hash = Yii::$app->security->generatePasswordHash($password);
 		}
 	}

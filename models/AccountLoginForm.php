@@ -8,18 +8,16 @@
 	/**
 	 * LoginForm is the model behind the login form.
 	 *
-	 * todo fix ajax validation
 	 */
 	class AccountLoginForm extends Model
 	{
 		public $username;
 		public $password;
-		public $rememberMe = FALSE;
-
-		protected $identity;
+		public $rememberMe = TRUE;
+		private $_user = FALSE;
 
 		/**
-		 * @return array the validation rules.
+		 * @inheritdoc
 		 */
 		public function rules()
 		{
@@ -33,26 +31,35 @@
 			];
 		}
 
-		public function attributeLabels()
-		{
-			return [
-				'username'   => 'Username',
-				'password'   => 'Password',
-				'rememberMe' => 'Remember me?',
-			];
-		}
-
 		/**
 		 * Validates the password.
 		 * This method serves as the inline validation for password.
+		 *
+		 * @param string $attribute the attribute currently being validated
+		 * @param array  $params    the additional name-value pairs given in the rule
 		 */
-		public function validatePassword()
+		public function validatePassword($attribute, $params)
 		{
 			if (!$this->hasErrors()) {
-				if (!$this->identity || !Yii::$app->getSecurity()->validatePassword($this->password, $this->identity->password)) {
-					$this->addError('password', 'Incorrect username or password.');
+				$user = $this->getUser();
+				if (!$user || !$user->validatePassword($this->password)) {
+					$this->addError($attribute, 'Incorrect username or password.');
 				}
 			}
+		}
+
+		/**
+		 * Finds user by [[username]]
+		 *
+		 * @return User|null
+		 */
+		public function getUser()
+		{
+			if ($this->_user === FALSE) {
+				$this->_user = User::findByUsername($this->username);
+			}
+
+			return $this->_user;
 		}
 
 		/**
@@ -67,14 +74,5 @@
 			} else {
 				return FALSE;
 			}
-		}
-
-		public function getUser()
-		{
-			if ($this->identity === FALSE) {
-				$this->identity = User::findByUsername($this->username);
-			}
-
-			return $this->identity;
 		}
 	}

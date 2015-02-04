@@ -14,7 +14,7 @@
 				<?= $form->field($model, 'username')->textInput(['class' => 'form-control']) ?>
 			</div>
 			<div class="form-group">
-				<?= $form->field($model, 'password')->passwordInput(['class' => 'form-control']) ?>
+				<?= $form->field($model, 'password_hash')->passwordInput(['class' => 'form-control']) ?>
 			</div>
 			<div class="checkbox">
 				<?= $form->field($model, 'rememberMe')->checkbox() ?>
