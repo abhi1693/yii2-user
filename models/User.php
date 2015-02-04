@@ -154,19 +154,7 @@
 		 */
 		public function validatePassword($password)
 		{
-			return $this->password == Yii::$app->security->validatePassword($password, $this->generatePassword($password));
-		}
-
-		/**
-		 * Generates password hash from password and sets it to the model
-		 *
-		 * @param string $password original password.
-		 *
-		 * @return string hashed password.
-		 */
-		public function generatePassword($password)
-		{
-			return Yii::$app->security->generatePasswordHash($password);
+			return Yii::$app->security->validatePassword($password, $this->$password);
 		}
 
 		/**
@@ -252,5 +240,29 @@
 				'created_at'  => 'Created At',
 				'updated_at'  => 'Updated At'
 			];
+		}
+
+		public function beforeSave($insert)
+		{
+			if ($insert) {
+				$this->setAttribute('auth_key', Yii::$app->security->generateRandomString());
+			}
+
+			if (!empty($this->password))
+				$this->setAttribute('password', $this->setPassword($this->password));
+
+			return parent::beforeSave($insert);
+		}
+
+		/**
+		 * Generates password hash from password and sets it to the model
+		 *
+		 * @param string $password original password.
+		 *
+		 * @return string hashed password.
+		 */
+		public function setPassword($password)
+		{
+			$this->password = Yii::$app->security->generatePasswordHash($password);
 		}
 	}
