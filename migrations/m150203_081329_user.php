@@ -22,12 +22,13 @@
 
 			$this->createTable(Profile::tableName(), [
 				'id'         => Schema::TYPE_PK,
-				'uid'        => Schema::TYPE_INTEGER . ' NOT NULL',
+				'uid' => Schema::TYPE_INTEGER . ' NOT NULL UNIQUE',
 				'name_first' => Schema::TYPE_STRING . ' NOT NULL',
 				'name_last'  => Schema::TYPE_STRING,
 				'sex'        => Schema::TYPE_INTEGER,
 			]);
 
+			$this->createIndex('uid_index', Profile::tableName(), 'uid', TRUE);
 			$this->addForeignKey('profile_uid_user_id', Profile::tableName(), 'uid', User::tableName(), 'id', 'CASCADE', 'CASCADE');
 		}
 
