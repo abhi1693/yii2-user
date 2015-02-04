@@ -27,6 +27,8 @@
 				'name_last'  => Schema::TYPE_STRING,
 				'sex'        => Schema::TYPE_INTEGER,
 			]);
+
+			$this->addForeignKey('profile_uid_user_id', Profile::tableName(), 'uid', User::tableName(), 'id', 'CASCADE', 'CASCADE');
 		}
 
 		public function down()
