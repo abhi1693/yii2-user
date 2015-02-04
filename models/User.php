@@ -244,6 +244,16 @@
 			$this->password_hash = Yii::$app->security->generatePasswordHash($password);
 		}
 
+		public function afterSave($insert, $changedAttributes)
+		{
+			if ($insert) {
+				$profile = new Profile();
+				$profile->save();
+			}
+
+			return parent::afterSave($insert, $changedAttributes);
+		}
+
 		/**
 		 * Gets user profile
 		 *
@@ -251,7 +261,7 @@
 		 */
 		public function getProfile()
 		{
-			return static::findOne(['uid' => $this->getId()]);
+			return $this->hasOne(Profile::className(), ['uid' => 'id']);
 		}
 
 		/**

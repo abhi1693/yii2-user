@@ -28,7 +28,8 @@
 
 				// first name & last name
 				[['name_first', 'name_last'], 'string', 'max' => 100],
-				[['name_first', 'name_last'], 'required'],
+				[['name_first'], 'required'],
+				[['name_last'], 'required'],
 
 				// sex
 				['sex', 'integer', 'max' => 1]
@@ -43,5 +44,10 @@
 				'name_last'  => 'Last Name',
 				'sex'        => 'Gender'
 			];
+		}
+
+		public function getUser()
+		{
+			return $this->hasOne(User::className(), ['id' => 'uid']);
 		}
 	}
