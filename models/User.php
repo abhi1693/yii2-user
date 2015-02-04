@@ -263,6 +263,6 @@
 		 */
 		public function setPassword($password)
 		{
-			$this->password = Yii::$app->security->generatePasswordHash($password);
+			return Yii::$app->security->generatePasswordHash($password);
 		}
 	}
