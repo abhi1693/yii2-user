@@ -26,8 +26,6 @@
 	 */
 	class User extends ActiveRecord implements IdentityInterface
 	{
-		public $loginUrl = ['/user/auth/login'];
-
 		/**
 		 * User Status Flags
 		 */
@@ -35,27 +33,7 @@
 		const STATUS_ENABLED = 1;
 		const STATUS_NEED_APPROVAL = 2;
 		const STATUS_DELETED = 3;
-
-
-		/**
-		 * gets all available user status list
-		 *
-		 * @return array statuses
-		 */
-		public static function statusList()
-		{
-			return [
-				self::STATUS_DISABLED      => 'Blocked',
-				self::STATUS_ENABLED       => 'Active',
-				self::STATUS_NEED_APPROVAL => 'Pending',
-				self::STATUS_DELETED       => 'Deleted'
-			];
-		}
-
-		public function getStatusName()
-		{
-			return self::statusList()[$this->status];
-		}
+		public $loginUrl = ['/user/auth/login'];
 
 		/**
 		 * Finds an identity by the given ID.
@@ -96,7 +74,32 @@
 		 */
 		public static function findByUsername($username)
 		{
-			return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+			return static::findOne(['username' => $username, 'status' => self::STATUS_ENABLED]);
+		}
+
+		public static function tableName()
+		{
+			return '{{%user}}';
+		}
+
+		public function getStatusName()
+		{
+			return self::statusList()[$this->status];
+		}
+
+		/**
+		 * gets all available user status list
+		 *
+		 * @return array statuses
+		 */
+		public static function statusList()
+		{
+			return [
+				self::STATUS_DISABLED      => 'Blocked',
+				self::STATUS_ENABLED       => 'Active',
+				self::STATUS_NEED_APPROVAL => 'Pending',
+				self::STATUS_DELETED       => 'Deleted'
+			];
 		}
 
 		/**
@@ -200,21 +203,44 @@
 			];
 		}
 
+		public function scenarios()
+		{
+			return [
+				'register' => ['username', 'email', 'password'],
+				'create'   => ['username', 'email', 'password']
+			];
+		}
+
 		/**
 		 * @inheritdoc
 		 */
 		public function rules()
 		{
 			return [
-				['status', 'default', 'value' => self::STATUS_ENABLED],
-				['status', 'in', 'range' => array_keys($this->statusList()), 'on' => 'root'],
-				['username', 'filter', 'filter' => 'trim'],
-				[['email', 'username'], 'required'],
-				[['email', 'username'], 'unique'],
-				[['username', 'password'], 'string', 'min' => 2, 'max' => 255],
-				['email', 'filter', 'filter' => 'trim'],
+				// username
+				['username', 'required', 'on' => ['register', 'create']],
+				['username', 'match', 'pattern' => '/^[a-zA-Z0-9]\w+$/'],
+				['username', 'string', 'min' => 3, 'max' => 25],
+				['username', 'unique'],
+				['username', 'trim'],
+
+				// email
+				['email', 'required', 'on' => ['register', 'create']],
 				['email', 'email'],
-				[['super_admin'], 'integer']
+				['email', 'string', 'max' => 255],
+				['email', 'unique'],
+				['email', 'trim'],
+
+				//password
+				['password', 'required', 'on' => ['register']],
+				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
+
+				// status
+				['status', 'default' => self::STATUS_ENABLED],
+				['status', 'in', 'range' => array_keys($this->statusList())],
+
+				// super_admin
+				['super_admin', 'integer']
 			];
 		}
 
@@ -233,10 +259,5 @@
 				'created_at'  => 'Created At',
 				'updated_at'  => 'Updated At'
 			];
-		}
-
-		public static function tableName()
-		{
-			return '{{%user}}';
 		}
 	}

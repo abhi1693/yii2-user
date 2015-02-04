@@ -3,7 +3,6 @@
 	namespace abhimanyu\user\models;
 
 	use Yii;
-	use yii\base\Model;
 	use yii\data\ActiveDataProvider;
 
 	/**
@@ -17,12 +16,6 @@
 				[['id', 'email', 'password', 'username'], 'safe'],
 				[['status', 'created_at', 'updated_at', 'super_admin'], 'integer'],
 			];
-		}
-
-		public function scenarios()
-		{
-			// bypass scenarios() implementation in the parent class
-			return Model::scenarios();
 		}
 
 		public function search($params)
