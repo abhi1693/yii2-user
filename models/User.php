@@ -234,13 +234,6 @@
 				//password
 				['password', 'required', 'on' => ['register']],
 				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
-
-				// status
-				['status', 'default' => self::STATUS_ENABLED],
-				['status', 'in', 'range' => array_keys($this->statusList())],
-
-				// super_admin
-				['super_admin', 'integer']
 			];
 		}
 
