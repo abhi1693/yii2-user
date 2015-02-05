@@ -28,7 +28,7 @@
 
 				<div class="col-md-8 text-right">
 					<small>
-						<?= \yii\helpers\Html::a('Forgot your password?', Yii::$app->urlManager->createUrl('//user/auth/recoverPassword')) ?>
+						<?= \yii\helpers\Html::a('Forgot your password?', Yii::$app->urlManager->createUrl('//user/auth/recover-password')) ?>
 					</small>
 				</div>
 			</div>
