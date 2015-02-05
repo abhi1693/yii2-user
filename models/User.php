@@ -18,6 +18,7 @@
 	 * @property string  $password_reset_token
 	 * @property string  $email
 	 * @property string  $auth_key
+	 * @property integer $super_admin
 	 * @property integer $status
 	 * @property integer $created_at
 	 * @property integer $updated_at
@@ -280,13 +281,18 @@
 		/**
 		 * This method is used to register new user account.
 		 *
+		 * @param bool $isSuperAdmin
+		 *
 		 * @return bool
 		 */
-		public function register()
+		public function register($isSuperAdmin = FALSE)
 		{
 			if ($this->getIsNewRecord() == FALSE) {
 				throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
 			}
+
+			// Set to 1 if isSuperAdmin is true else set to 0
+			$this->super_admin = $isSuperAdmin ? 1 : 0;
 
 			if ($this->save()) {
 				// todo send confirmation mail if option enabled
