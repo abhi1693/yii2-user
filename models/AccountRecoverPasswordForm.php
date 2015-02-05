@@ -4,7 +4,6 @@
 
 	use Yii;
 	use yii\base\Model;
-	use yii\captcha\Captcha;
 
 	class AccountRecoverPasswordForm extends Model
 	{
@@ -18,9 +17,6 @@
 				['email', 'required'],
 				['email', 'email'],
 				['email', 'exist', 'targetClass' => User::className(), 'message' => 'Email not found in the system!'],
-
-				// verify code
-				['verifyCode', 'captcha', 'allowEmpty' => Captcha::checkRequirements()]
 			];
 		}
 
