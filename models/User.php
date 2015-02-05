@@ -2,6 +2,7 @@
 
 	namespace abhimanyu\user\models;
 
+	use abhimanyu\helpers\enum\UserStatus;
 	use Yii;
 	use yii\base\NotSupportedException;
 	use yii\behaviors\TimestampBehavior;
@@ -26,9 +27,6 @@
 	 */
 	class User extends ActiveRecord implements IdentityInterface
 	{
-		const STATUS_DELETED = 0;
-		const STATUS_ACTIVE = 1;
-
 		/** @var string Plain password. Used for model validation. */
 		public $password;
 
@@ -48,7 +46,7 @@
 		 */
 		public static function findIdentity($id)
 		{
-			return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+			return static::findOne(['id' => $id, 'status' => UserStatus::ACTIVE]);
 		}
 
 		/**
@@ -68,7 +66,7 @@
 		 */
 		public static function findByUsername($username)
 		{
-			return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+			return static::findOne(['username' => $username, 'status' => UserStatus::ACTIVE]);
 		}
 
 		/**
@@ -86,7 +84,7 @@
 
 			return static::findOne([
 				                       'password_reset_token' => $token,
-				                       'status'               => self::STATUS_ACTIVE,
+				                       'status' => UserStatus::ACTIVE,
 			                       ]);
 		}
 
