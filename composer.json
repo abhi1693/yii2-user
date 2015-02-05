@@ -16,8 +16,7 @@
     }
   ],
   "require": {
-    "yiisoft/yii2": "*",
-    "abhi1693/yii2-enum": "1.0.0"
+    "yiisoft/yii2": "*"
   },
   "autoload": {
     "psr-4": {
