@@ -30,7 +30,15 @@
 
 		/** @var string Plain password. Used for model validation. */
 		public $password;
+
+		/** @var string Plain password. Used for model validation. */
 		public $password_confirm;
+
+		/** @var string First Name. Used for adding to profile table */
+		public $name_first;
+
+		/** @var string Last Name. Used for adding to profile table */
+		public $name_last;
 
 		/**
 		 * @inheritdoc
@@ -126,8 +134,7 @@
 		public function scenarios()
 		{
 			return [
-				'register' => ['username', 'email', 'password', 'password_confirm'],
-				'create'   => ['username', 'email', 'password']
+				'register' => ['username', 'email', 'password', 'password_confirm', 'name_first', 'name_last'],
 			];
 		}
 
@@ -138,14 +145,14 @@
 		{
 			return [
 				// username
-				['username', 'required', 'on' => ['register', 'create']],
+				['username', 'required', 'on' => ['register']],
 				['username', 'match', 'pattern' => '/^[a-zA-Z0-9_]\w+$/'],
 				['username', 'string', 'min' => 3, 'max' => 25],
 				['username', 'unique'],
 				['username', 'trim'],
 
 				// email
-				['email', 'required', 'on' => ['register', 'create']],
+				['email', 'required', 'on' => ['register']],
 				['email', 'email'],
 				['email', 'string', 'max' => 255],
 				['email', 'unique'],
@@ -153,11 +160,17 @@
 
 				// password
 				['password', 'required', 'on' => ['register']],
-				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
+				['password', 'string', 'min' => 6, 'on' => ['register']],
 
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register']],
-				['password_confirm', 'compare', 'compareAttribute' => 'password']
+				['password_confirm', 'compare', 'compareAttribute' => 'password'],
+
+				// first name
+				['name_first', 'required', 'on' => ['register']],
+
+				// last name
+				['name_last', 'required', 'on' => ['register']],
 			];
 		}
 
@@ -248,8 +261,10 @@
 		{
 			if ($insert) {
 				$profile = Yii::createObject([
-					                             'class' => Profile::className(),
-					                             'uid'   => $this->id
+					                             'class'      => Profile::className(),
+					                             'uid'        => $this->id,
+					                             'name_first' => $this->name_first,
+					                             'name_last'  => $this->name_last
 				                             ]);
 				$profile->save(FALSE);
 			}
