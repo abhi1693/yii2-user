@@ -247,11 +247,14 @@
 		public function afterSave($insert, $changedAttributes)
 		{
 			if ($insert) {
-				$profile = new Profile();
-				$profile->save();
+				$profile = Yii::createObject([
+					                             'class' => Profile::className(),
+					                             'uid'   => $this->id
+				                             ]);
+				$profile->save(FALSE);
 			}
 
-			return parent::afterSave($insert, $changedAttributes);
+			parent::afterSave($insert, $changedAttributes);
 		}
 
 		/**
