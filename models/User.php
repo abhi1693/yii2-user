@@ -282,10 +282,11 @@
 		 * This method is used to register new user account.
 		 *
 		 * @param bool $isSuperAdmin
+		 * @param int  $status
 		 *
 		 * @return bool
 		 */
-		public function register($isSuperAdmin = FALSE)
+		public function register($isSuperAdmin = FALSE, $status = 1)
 		{
 			if ($this->getIsNewRecord() == FALSE) {
 				throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
@@ -293,6 +294,9 @@
 
 			// Set to 1 if isSuperAdmin is true else set to 0
 			$this->super_admin = $isSuperAdmin ? 1 : 0;
+
+			// Set status
+			$this->status = $status;
 
 			if ($this->save()) {
 				// todo send confirmation mail if option enabled
