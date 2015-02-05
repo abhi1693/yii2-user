@@ -34,12 +34,6 @@
 		/** @var string Plain password. Used for model validation. */
 		public $password_confirm;
 
-		/** @var string First Name. Used for adding to profile table */
-		public $name_first;
-
-		/** @var string Last Name. Used for adding to profile table */
-		public $name_last;
-
 		/**
 		 * @inheritdoc
 		 */
@@ -134,7 +128,7 @@
 		public function scenarios()
 		{
 			return [
-				'register' => ['username', 'email', 'password', 'password_confirm', 'name_first', 'name_last'],
+				'register' => ['username', 'email', 'password', 'password_confirm'],
 			];
 		}
 
@@ -165,12 +159,6 @@
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register']],
 				['password_confirm', 'compare', 'compareAttribute' => 'password'],
-
-				// first name
-				['name_first', 'required', 'on' => ['register']],
-
-				// last name
-				['name_last', 'required', 'on' => ['register']],
 			];
 		}
 
@@ -263,8 +251,6 @@
 				$profile = Yii::createObject([
 					                             'class'      => Profile::className(),
 					                             'uid'        => $this->id,
-					                             'name_first' => $this->name_first,
-					                             'name_last'  => $this->name_last
 				                             ]);
 				$profile->save(FALSE);
 			}
