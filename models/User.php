@@ -129,6 +129,7 @@
 		{
 			return [
 				'register' => ['username', 'email', 'password', 'password_confirm'],
+				'create'   => ['username', 'email', 'password']
 			];
 		}
 
@@ -139,14 +140,14 @@
 		{
 			return [
 				// username
-				['username', 'required', 'on' => ['register']],
+				['username', 'required', 'on' => ['register', 'create']],
 				['username', 'match', 'pattern' => '/^[a-zA-Z0-9_]\w+$/'],
 				['username', 'string', 'min' => 3, 'max' => 25],
 				['username', 'unique'],
 				['username', 'trim'],
 
 				// email
-				['email', 'required', 'on' => ['register']],
+				['email', 'required', 'on' => ['register', 'create']],
 				['email', 'email'],
 				['email', 'string', 'max' => 255],
 				['email', 'unique'],
@@ -154,11 +155,11 @@
 
 				// password
 				['password', 'required', 'on' => ['register']],
-				['password', 'string', 'min' => 6, 'on' => ['register']],
+				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
 
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register']],
-				['password_confirm', 'compare', 'compareAttribute' => 'password'],
+				['password_confirm', 'compare', 'compareAttribute' => 'password']
 			];
 		}
 
@@ -249,8 +250,8 @@
 		{
 			if ($insert) {
 				$profile = Yii::createObject([
-					                             'class'      => Profile::className(),
-					                             'uid'        => $this->id,
+					                             'class' => Profile::className(),
+					                             'uid'   => $this->id
 				                             ]);
 				$profile->save(FALSE);
 			}
