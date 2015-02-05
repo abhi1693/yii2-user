@@ -27,7 +27,7 @@
 
 					<!-- todo add captcha -->
 					<hr>
-					<?= \yii\helpers\Html::submitButton('Get new Password', ['class' => 'btn btn-primary']) ?><?= \yii\helpers\Html::a('Back', Yii::$app->urlManager->createUrl('//')) ?>
+					<?= \yii\helpers\Html::submitButton('Get new Password', ['class' => 'btn btn-primary']) ?><?= \yii\helpers\Html::a('Back', Yii::$app->urlManager->createUrl('//'), ['class' => 'pull-right']) ?>
 				</div>
 
 				<?php $form::end(); ?>
