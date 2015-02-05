@@ -276,4 +276,25 @@
 		{
 			return $this->getPrimaryKey();
 		}
+
+		/**
+		 * This method is used to register new user account.
+		 *
+		 * @return bool
+		 */
+		public function register()
+		{
+			if ($this->getIsNewRecord() == FALSE) {
+				throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
+			}
+
+			if ($this->save()) {
+				// todo send confirmation mail if option enabled
+				Yii::$app->user->login($this);
+
+				return TRUE;
+			}
+
+			return FALSE;
+		}
 	}
