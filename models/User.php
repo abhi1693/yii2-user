@@ -128,7 +128,8 @@
 		{
 			return [
 				'register' => ['username', 'email', 'password', 'password_confirm'],
-				'create'   => ['username', 'email', 'password']
+				'create'  => ['username', 'email', 'password'],
+				'recover' => ['email']
 			];
 		}
 

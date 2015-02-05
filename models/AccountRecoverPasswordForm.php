@@ -35,9 +35,9 @@
 			$user = User::findOne(['email' => $this->email]);
 
 			if ($user != NULL) {
-				$user->password_reset_token = \Yii::$app->getSecurity()->generateRandomString();
+				$user->password_reset_token = Yii::$app->getSecurity()->generateRandomString();
 
-				$user->save();
+				$user->save(FALSE);
 			}
 
 			// todo send mail

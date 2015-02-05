@@ -1,5 +1,9 @@
 <?php
 	/** @var $model \abhimanyu\user\models\AccountRecoverPasswordForm */
+
+	foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+		echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+	}
 ?>
 <div class="container" style="text-align: center">
 	<div class="row">
