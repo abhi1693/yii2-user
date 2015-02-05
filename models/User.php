@@ -253,7 +253,7 @@
 					                             'class' => Profile::className(),
 					                             'uid'   => $this->id
 				                             ]);
-				$profile->save(FALSE);
+				$profile->save();
 			}
 
 			parent::afterSave($insert, $changedAttributes);
