@@ -13,11 +13,30 @@
 			                                             ]); ?>
 
 			<div class="form-group">
-				<?= $form->field($model, 'email')->textarea([
+				<?= $form->field($model, 'email')->textInput([
 					                                            'class'        => 'form-control',
 					                                            'autocomplete' => 'off',
 					                                            'autofocus'    => 'on'
 				                                            ]) ?>
+			</div>
+
+			<div class="form-group">
+				<?= $form->field($model, 'username')->textInput([
+					                                                'class'        => 'form-control',
+					                                                'autocomplete' => 'off',
+				                                                ]) ?>
+			</div>
+
+			<div class="form-group">
+				<?= $form->field($model, 'password')->passwordInput([
+					                                                    'class' => 'form-control',
+				                                                    ]) ?>
+			</div>
+
+			<div class="form-group">
+				<?= $form->field($model, 'password_confirm')->passwordInput([
+					                                                            'class' => 'form-control',
+				                                                            ]) ?>
 			</div>
 
 			<?php $form::end(); ?>
