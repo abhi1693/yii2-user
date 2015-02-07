@@ -43,7 +43,6 @@
 			<div class="row">
 				<div class="col-md-4">
 					<?= \yii\helpers\Html::submitButton('Register', ['class' => 'btn btn-primary']) ?>
-					<?= \yii\helpers\Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
 				</div>
 			</div>
 
