@@ -14,10 +14,10 @@
 
 			<div class="form-group">
 				<?= $form->field($model, 'email')->textInput([
-					                                            'class'        => 'form-control',
-					                                            'autocomplete' => 'off',
-					                                            'autofocus'    => 'on'
-				                                            ]) ?>
+					                                             'class'        => 'form-control',
+					                                             'autocomplete' => 'off',
+					                                             'autofocus'    => 'on'
+				                                             ]) ?>
 			</div>
 
 			<div class="form-group">
@@ -37,6 +37,12 @@
 				<?= $form->field($model, 'password_confirm')->passwordInput([
 					                                                            'class' => 'form-control',
 				                                                            ]) ?>
+			</div>
+
+			<hr>
+			<div class="row">
+				<?= \yii\helpers\Html::submitButton('Register', ['class' => 'btn btn-primary']) ?>
+				<?= \yii\helpers\Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
 			</div>
 
 			<?php $form::end(); ?>
