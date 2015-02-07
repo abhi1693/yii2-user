@@ -2,7 +2,7 @@
 	/** @var $model \abhimanyu\user\models\User */
 ?>
 
-<div class="container" style="max-width: 300px;margin: 0 auto 20px;text-align: left;">
+<div class="container" style="max-width: 400px;margin: 0 auto 20px;text-align: left;">
 	<div class="panel panel-default">
 		<div class="panel-heading">Sign Up!</div>
 

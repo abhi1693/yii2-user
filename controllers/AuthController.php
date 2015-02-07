@@ -42,7 +42,9 @@
 				}
 
 				if ($model->validate() && $model->register(FALSE, User::STATUS_PENDING)) {
-					return $this->redirect(Yii::$app->user->returnUrl);
+					Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
+
+					return $this->redirect(Yii::$app->urlManager->createUrl('//user/auth/login'));
 				}
 			}
 
