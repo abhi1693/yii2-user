@@ -1,5 +1,6 @@
 <?php
 	/* @var $model \abhimanyu\user\models\AccountLoginForm */
+	/* @var $canRegister bool */
 ?>
 <div class="container" style="text-align: center">
 	<div class="panel panel-default" id="login-form" style="max-width: 300px;margin: 0 auto 20px;text-align: left">
@@ -32,6 +33,15 @@
 					</small>
 				</div>
 			</div>
+
+			<?php
+				if ($canRegister) {
+					?>
+					<hr>
+					<?= \yii\helpers\Html::a('Don\'t have an account?', Yii::$app->urlManager->createUrl('//user/auth/register')) ?>
+				<?php
+				}
+			?>
 
 			<?php $form::end(); ?>
 		</div>

@@ -4,6 +4,7 @@
 
 	use abhimanyu\user\models\AccountLoginForm;
 	use abhimanyu\user\models\AccountRecoverPasswordForm;
+	use abhimanyu\user\models\User;
 	use Yii;
 	use yii\web\Controller;
 	use yii\web\Response;
@@ -20,20 +21,32 @@
 			$model = new AccountLoginForm();
 
 			if ($model->load(Yii::$app->request->post())) {
+				if ($model->validate() && $model->login()) {
+					return $this->redirect(Yii::$app->user->returnUrl);
+				}
+			}
+
+			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.registration')]);
+		}
+
+		public function actionRegister()
+		{
+			$model           = new User();
+			$model->scenario = 'register';
+
+			if ($model->load(Yii::$app->request->post())) {
 				if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
 					Yii::$app->response->format = Response::FORMAT_JSON;
 
 					return ActiveForm::validate($model);
 				}
 
-				if ($model->validate() && $model->login()) {
+				if ($model->validate() && $model->register(FALSE, User::STATUS_PENDING)) {
 					return $this->redirect(Yii::$app->user->returnUrl);
 				}
 			}
 
-			// todo show register form link if enabled
-
-			return $this->render('login', ['model' => $model]);
+			return $this->render('register', ['model' => $model]);
 		}
 
 		public function actionRecoverPassword()
