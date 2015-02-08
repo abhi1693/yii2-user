@@ -14,7 +14,7 @@
 	{
 		public function beforeAction($action)
 		{
-			if (!Yii::$app->params['app.installed']) {
+			if (!Yii::$app->params['installed']) {
 				return $this->redirect(Yii::$app->urlManager->createUrl('//installer/install/index'));
 			}
 
