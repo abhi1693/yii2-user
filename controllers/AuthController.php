@@ -12,6 +12,15 @@
 
 	class AuthController extends Controller
 	{
+		public function beforeAction($action)
+		{
+			if (!Yii::$app->params['app.installed']) {
+				return $this->redirect(Yii::$app->urlManager->createUrl('//installer/install/index'));
+			}
+
+			return parent::beforeAction($action);
+		}
+
 		public function actionLogin()
 		{
 			// If the user is logged in, redirect to dashboard
