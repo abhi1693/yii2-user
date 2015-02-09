@@ -26,7 +26,7 @@
 				}
 			}
 
-			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.registration')]);
+			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.enableRegistration')]);
 		}
 
 		public function actionRegister()
