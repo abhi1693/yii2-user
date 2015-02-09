@@ -6,12 +6,47 @@
 	use abhimanyu\user\models\AccountRecoverPasswordForm;
 	use abhimanyu\user\models\User;
 	use Yii;
+	use yii\base\Model;
+	use yii\filters\AccessControl;
+	use yii\filters\VerbFilter;
 	use yii\web\Controller;
 	use yii\web\Response;
 	use yii\widgets\ActiveForm;
 
 	class AuthController extends Controller
 	{
+		public function behaviors()
+		{
+			return [
+				'access' => [
+					'class' => AccessControl::className(),
+					'rules' => [
+						[
+							'allow'   => TRUE,
+							'actions' => ['login'],
+							'roles'   => ['?']
+						],
+						[
+							'allow'   => TRUE,
+							'actions' => ['logout'],
+							'roles'   => ['@']
+						]
+					]
+				],
+				'verbs'  => [
+					'class'   => VerbFilter::className(),
+					'actions' => [
+						'logout' => ['post']
+					]
+				]
+			];
+		}
+
+		/**
+		 * Displays the login page.
+		 *
+		 * @return string|\yii\web\Response
+		 */
 		public function actionLogin()
 		{
 			// If the user is logged in, redirect to dashboard
@@ -20,27 +55,61 @@
 
 			$model = new AccountLoginForm();
 
-			if ($model->load(Yii::$app->request->post())) {
-				if ($model->validate() && $model->login()) {
-					return $this->redirect(Yii::$app->user->returnUrl);
-				}
-			}
+			/** Performs ajax validation if enabled */
+			$this->performAjaxValidation($model);
+
+			if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->login())
+				return $this->redirect(Yii::$app->user->returnUrl);
 
 			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.enableRegistration')]);
 		}
 
+		/**
+		 * Performs AJAX validation.
+		 *
+		 * @param array|Model $models
+		 *
+		 * @throws \yii\base\ExitException
+		 */
+		protected function performAjaxValidation($models)
+		{
+			if (Yii::$app->request->isAjax) {
+				if (is_array($models)) {
+					$result = [];
+
+					foreach ($models as $model) {
+						if ($model->load(Yii::$app->request->post())) {
+							Yii::$app->response->format = Response::FORMAT_JSON;
+							$result                     = array_merge($result, ActiveForm::validate($model));
+						}
+					}
+
+					echo json_encode($result);
+					Yii::$app->end();
+				}
+			} else {
+				if ($models->load(Yii::$app->request->post())) {
+					Yii::$app->response->format = Response::FORMAT_JSON;
+					echo json_encode(ActiveForm::validate($models));
+					Yii::$app->end();
+				}
+			}
+		}
+
+		/**
+		 *  Register the user
+		 *
+		 * @return string|\yii\web\Response
+		 */
 		public function actionRegister()
 		{
 			$model           = new User();
 			$model->scenario = 'register';
 
+			/** Performs ajax validation if enabled */
+			$this->performAjaxValidation($model);
+
 			if ($model->load(Yii::$app->request->post())) {
-				if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-					Yii::$app->response->format = Response::FORMAT_JSON;
-
-					return ActiveForm::validate($model);
-				}
-
 				if ($model->validate() && $model->register(FALSE, User::STATUS_PENDING)) {
 					Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
 
@@ -51,22 +120,36 @@
 			return $this->render('register', ['model' => $model]);
 		}
 
+		/**
+		 * Sends password recovery mail to the user
+		 *
+		 * @return string
+		 */
 		public function actionRecoverPassword()
 		{
 			$model = new AccountRecoverPasswordForm();
 
+			/** Performs ajax validation if enabled */
+			$this->performAjaxValidation($model);
+
 			if ($model->load(Yii::$app->request->post())) {
-				if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
-					Yii::$app->response->format = Response::FORMAT_JSON;
-
-					return ActiveForm::validate($model);
-				}
-
 				if ($model->validate()) {
 					$model->recoverPassword();
 				}
 			}
 
 			return $this->render('recoverPassword', ['model' => $model]);
+		}
+
+		/**
+		 * Logs the user out and then redirects to the homepage.
+		 *
+		 * @return \yii\web\Response
+		 */
+		public function actionLogout()
+		{
+			Yii::$app->user->logout();
+
+			return $this->goHome();
 		}
 	}
