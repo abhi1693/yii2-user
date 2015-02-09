@@ -23,7 +23,7 @@
 					'rules' => [
 						[
 							'allow'   => TRUE,
-							'actions' => ['login'],
+							'actions' => ['login', 'register', 'recover-password'],
 							'roles'   => ['?']
 						],
 						[
