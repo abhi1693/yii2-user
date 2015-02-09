@@ -44,7 +44,7 @@ Contributing instructions are located in [CONTRIBUTING.md](CONTRIBUTING.md) file
 
 ## Change Log
 
-Refer to [Change Logs](ChangeLog.md)
+Refer to [Change Logs](CHANGE.md)
 
 ## License
 
