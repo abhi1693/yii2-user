@@ -1,10 +1,8 @@
 <?php
 	/** @var $model \abhimanyu\user\models\User */
-
-	foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-		echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
-	}
+	/** @var $this \yii\web\View */
 ?>
+<?= $this->render('/alert') ?>
 
 <div class="container" style="max-width: 400px;margin: 0 auto 20px;text-align: left;">
 	<div class="panel panel-default">

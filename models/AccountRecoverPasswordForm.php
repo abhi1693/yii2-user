@@ -41,6 +41,7 @@
 			}
 
 			// todo send mail
+
 			Yii::$app->session->setFlash('info', 'You will receive an email with instructions on how to reset your password in a few minutes.');
 		}
 	}
