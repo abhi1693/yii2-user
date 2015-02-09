@@ -41,6 +41,13 @@
 			}
 
 			// todo send mail
+			$mailer           = Yii::$app->mailer;
+			$mailer->viewPath = '@abhimanyu/user/views/mail';
+			$mailer->compose('recovery', ['user' => $user])
+				->setTo($user->email)
+				->setFrom(Yii::$app->config->get('mail.username'), 'no@reply.com')
+				->setSubject('Password Recovery')
+				->send();
 
 			Yii::$app->session->setFlash('info', 'You will receive an email with instructions on how to reset your password in a few minutes.');
 		}
