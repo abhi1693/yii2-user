@@ -38,7 +38,8 @@
 				if ($canRegister) {
 					?>
 					<hr>
-					<?= \yii\helpers\Html::a('Don\'t have an account?', Yii::$app->urlManager->createUrl('//user/auth/register')) ?>
+					<?= \yii\helpers\Html::a('Don\'t have an account?',
+					                         Yii::$app->urlManager->createUrl('//user/registration/register')) ?>
 				<?php
 				}
 			?>

@@ -4,7 +4,6 @@
 
 	use abhimanyu\user\models\AccountLoginForm;
 	use abhimanyu\user\models\AccountRecoverPasswordForm;
-	use abhimanyu\user\models\User;
 	use Yii;
 	use yii\base\Model;
 	use yii\filters\AccessControl;
@@ -65,27 +64,24 @@
 		}
 
 		/**
-		 *  Register the user
+		 * Sends password recovery mail to the user
 		 *
-		 * @return string|\yii\web\Response
+		 * @return string
 		 */
-		public function actionRegister()
+		public function actionRecoverPassword()
 		{
-			$model           = new User();
-			$model->scenario = 'register';
+			$model = new AccountRecoverPasswordForm();
 
 			/** Performs ajax validation if enabled */
 			$this->performAjaxValidation($model);
 
 			if ($model->load(Yii::$app->request->post())) {
-				if ($model->validate() && $model->register(FALSE, User::STATUS_PENDING)) {
-					Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
-
-					return $this->redirect(Yii::$app->urlManager->createUrl('//user/auth/login'));
+				if ($model->validate()) {
+					$model->recoverPassword();
 				}
 			}
 
-			return $this->render('register', ['model' => $model]);
+			return $this->render('recoverPassword', ['model' => $model]);
 		}
 
 		/**
@@ -118,27 +114,6 @@
 					Yii::$app->end();
 				}
 			}
-		}
-
-		/**
-		 * Sends password recovery mail to the user
-		 *
-		 * @return string
-		 */
-		public function actionRecoverPassword()
-		{
-			$model = new AccountRecoverPasswordForm();
-
-			/** Performs ajax validation if enabled */
-			$this->performAjaxValidation($model);
-
-			if ($model->load(Yii::$app->request->post())) {
-				if ($model->validate()) {
-					$model->recoverPassword();
-				}
-			}
-
-			return $this->render('recoverPassword', ['model' => $model]);
 		}
 
 		/**
