@@ -2,6 +2,8 @@
 	/* @var $model \abhimanyu\user\models\AccountLoginForm */
 	/* @var $canRegister bool */
 	/* @var $this \yii\web\View */
+
+	$this->title = 'Sign In - ' . Yii::$app->name;
 ?>
 <?= $this->render('/alert') ?>
 

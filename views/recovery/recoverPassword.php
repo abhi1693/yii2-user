@@ -1,6 +1,8 @@
 <?php
 	/** @var $model \abhimanyu\user\models\AccountRecoverPasswordForm */
 	/** @var $this \yii\web\View */
+
+	$this->title = 'Password Recovery - ' . Yii::$app->name;
 ?>
 <?= $this->render('/alert') ?>
 

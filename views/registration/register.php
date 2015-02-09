@@ -1,6 +1,8 @@
 <?php
 	/** @var $model \abhimanyu\user\models\User */
 	/** @var $this \yii\web\View */
+
+	$this->title = 'Sign Up - ' . Yii::$app->name;
 ?>
 <?= $this->render('/alert') ?>
 
