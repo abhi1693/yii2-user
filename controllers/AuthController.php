@@ -56,12 +56,36 @@
 			$model = new AccountLoginForm();
 
 			/** Performs ajax validation if enabled */
-			$this->performAjaxValidation($model);
+			//$this->performAjaxValidation($model);
 
 			if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->login())
 				return $this->redirect(Yii::$app->user->returnUrl);
 
 			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.enableRegistration')]);
+		}
+
+		/**
+		 *  Register the user
+		 *
+		 * @return string|\yii\web\Response
+		 */
+		public function actionRegister()
+		{
+			$model           = new User();
+			$model->scenario = 'register';
+
+			/** Performs ajax validation if enabled */
+			$this->performAjaxValidation($model);
+
+			if ($model->load(Yii::$app->request->post())) {
+				if ($model->validate() && $model->register(FALSE, User::STATUS_PENDING)) {
+					Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
+
+					return $this->redirect(Yii::$app->urlManager->createUrl('//user/auth/login'));
+				}
+			}
+
+			return $this->render('register', ['model' => $model]);
 		}
 
 		/**
@@ -94,30 +118,6 @@
 					Yii::$app->end();
 				}
 			}
-		}
-
-		/**
-		 *  Register the user
-		 *
-		 * @return string|\yii\web\Response
-		 */
-		public function actionRegister()
-		{
-			$model           = new User();
-			$model->scenario = 'register';
-
-			/** Performs ajax validation if enabled */
-			$this->performAjaxValidation($model);
-
-			if ($model->load(Yii::$app->request->post())) {
-				if ($model->validate() && $model->register(FALSE, User::STATUS_PENDING)) {
-					Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
-
-					return $this->redirect(Yii::$app->urlManager->createUrl('//user/auth/login'));
-				}
-			}
-
-			return $this->render('register', ['model' => $model]);
 		}
 
 		/**
