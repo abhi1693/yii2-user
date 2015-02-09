@@ -9,7 +9,7 @@
 		<div class="panel-body">
 			<?php $form = \yii\widgets\ActiveForm::begin([
 				                                             'id'                   => 'register-form',
-				                                             'enableAjaxValidation' => TRUE,
+				                                             'enableAjaxValidation' => FALSE,
 			                                             ]); ?>
 
 			<div class="form-group">
