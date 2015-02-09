@@ -14,7 +14,7 @@
 			<div class="panel-body">
 				<?php $form = \yii\widgets\ActiveForm::begin([
 					                                             'id'                   => 'recover-password-form',
-					                                             'enableAjaxValidation' => TRUE
+					                                             'enableAjaxValidation' => FALSE
 				                                             ]); ?>
 				<p>Just enter your e-mail address. We´ll send you a new one!</p>
 
