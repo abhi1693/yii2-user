@@ -3,14 +3,10 @@
 	namespace abhimanyu\user\controllers;
 
 	use abhimanyu\user\models\AccountLoginForm;
-	use abhimanyu\user\models\AccountRecoverPasswordForm;
 	use Yii;
-	use yii\base\Model;
 	use yii\filters\AccessControl;
 	use yii\filters\VerbFilter;
 	use yii\web\Controller;
-	use yii\web\Response;
-	use yii\widgets\ActiveForm;
 
 	class AuthController extends Controller
 	{
@@ -22,7 +18,7 @@
 					'rules' => [
 						[
 							'allow'   => TRUE,
-							'actions' => ['login', 'register', 'recover-password'],
+							'actions' => ['login'],
 							'roles'   => ['?']
 						],
 						[
@@ -54,66 +50,10 @@
 
 			$model = new AccountLoginForm();
 
-			/** Performs ajax validation if enabled */
-			//$this->performAjaxValidation($model);
-
 			if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->login())
 				return $this->redirect(Yii::$app->user->returnUrl);
 
 			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.enableRegistration')]);
-		}
-
-		/**
-		 * Sends password recovery mail to the user
-		 *
-		 * @return string
-		 */
-		public function actionRecoverPassword()
-		{
-			$model = new AccountRecoverPasswordForm();
-
-			/** Performs ajax validation if enabled */
-			$this->performAjaxValidation($model);
-
-			if ($model->load(Yii::$app->request->post())) {
-				if ($model->validate()) {
-					$model->recoverPassword();
-				}
-			}
-
-			return $this->render('recoverPassword', ['model' => $model]);
-		}
-
-		/**
-		 * Performs AJAX validation.
-		 *
-		 * @param array|Model $models
-		 *
-		 * @throws \yii\base\ExitException
-		 */
-		protected function performAjaxValidation($models)
-		{
-			if (Yii::$app->request->isAjax) {
-				if (is_array($models)) {
-					$result = [];
-
-					foreach ($models as $model) {
-						if ($model->load(Yii::$app->request->post())) {
-							Yii::$app->response->format = Response::FORMAT_JSON;
-							$result                     = array_merge($result, ActiveForm::validate($model));
-						}
-					}
-
-					echo json_encode($result);
-					Yii::$app->end();
-				}
-			} else {
-				if ($models->load(Yii::$app->request->post())) {
-					Yii::$app->response->format = Response::FORMAT_JSON;
-					echo json_encode(ActiveForm::validate($models));
-					Yii::$app->end();
-				}
-			}
 		}
 
 		/**
