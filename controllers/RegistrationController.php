@@ -8,6 +8,7 @@
 
 	namespace abhimanyu\user\controllers;
 
+	use abhimanyu\user\Mailer;
 	use abhimanyu\user\models\User;
 	use Yii;
 	use yii\filters\AccessControl;
@@ -48,6 +49,9 @@
 			$model->scenario = 'register';
 
 			if ($model->load(Yii::$app->request->post()) && $model->register(FALSE, User::STATUS_PENDING)) {
+				// Send Welcome Message to activate the account
+				Mailer::sendWelcomeMessage($model);
+
 				Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
 
 				return $this->redirect(Yii::$app->urlManager->createUrl('//user/auth/login'));

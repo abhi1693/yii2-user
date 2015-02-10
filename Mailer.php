@@ -18,15 +18,15 @@
 		public $viewPath = '@abhimanyu/user/views/mail';
 
 		/**
-		 * Sends password recovery mail to the user
+		 * Sends welcome mail to the user upon registration
 		 *
 		 * @param \abhimanyu\user\models\User $user
 		 *
 		 * @return bool
 		 */
-		public static function sendRecoveryMessage(User $user)
+		public static function sendWelcomeMessage(User $user)
 		{
-			return Mailer::sendMail($user->email, 'Password Recovery', 'recovery', ['user' => $user]);
+			return Mailer::sendMail($user->email, 'Welcome to ' . Yii::$app->name, 'welcome', ['user' => $user]);
 		}
 
 		/**
@@ -49,5 +49,17 @@
 				->setFrom(Yii::$app->config->get('mail.username'), 'no@reply.com')
 				->setSubject($subject)
 				->send();
+		}
+
+		/**
+		 * Sends password recovery mail to the user
+		 *
+		 * @param \abhimanyu\user\models\User $user
+		 *
+		 * @return bool
+		 */
+		public static function sendRecoveryMessage(User $user)
+		{
+			return Mailer::sendMail($user->email, 'Password Recovery', 'recovery', ['user' => $user]);
 		}
 	}
