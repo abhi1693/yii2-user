@@ -42,7 +42,7 @@
 
 			$mailer           = Yii::$app->mailer;
 			$mailer->viewPath = '@abhimanyu/user/views/mail';
-			$mailer->compose('recovery', ['user' => $user])
+			$mailer->compose(['html' => 'recovery', 'text' => 'text/recovery'], ['user' => $user])
 				->setTo($user->email)
 				->setFrom(Yii::$app->config->get('mail.username'), 'no@reply.com')
 				->setSubject('Password Recovery')
