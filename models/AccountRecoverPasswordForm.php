@@ -2,6 +2,7 @@
 
 	namespace abhimanyu\user\models;
 
+	use abhimanyu\user\Mailer;
 	use Yii;
 	use yii\base\Model;
 
@@ -40,14 +41,8 @@
 				$user->save(FALSE);
 			}
 
-			$mailer           = Yii::$app->mailer;
-			$mailer->viewPath = '@abhimanyu/user/views/mail';
-			$mailer->compose(['html' => 'recovery', 'text' => 'text/recovery'], ['user' => $user])
-				->setTo($user->email)
-				->setFrom(Yii::$app->config->get('mail.username'), 'no@reply.com')
-				->setSubject('Password Recovery')
-				->send();
-
+			// Sends recovery mail
+			Mailer::sendRecoveryMessage($user);
 			Yii::$app->session->setFlash('info', 'You will receive an email with instructions on how to reset your password in a few minutes.');
 		}
 	}
