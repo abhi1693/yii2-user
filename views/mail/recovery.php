@@ -18,8 +18,8 @@
 	you initiated this request. Please click the link below to complete your password reset.
 </p>
 <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">
-	<?= Html::a('Change Password', Yii::$app->urlManager->createUrl('//user/recovery/reset/') . $user->password_reset_token,
-	            ['class' => 'btn btn-lg	btn-primary']); ?>
+	<?= Html::a('Change Password', ['//user/recovery/reset', 'id' => $user->id, 'code' => $user->password_reset_token],
+	            ['class' => 'btn btn-lg	btn-primary']) ?>
 </p>
 <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">
 	P.S. If you did not request to reset your password, please disregard this message. Your account is safe

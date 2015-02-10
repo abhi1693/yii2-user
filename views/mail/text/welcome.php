@@ -12,8 +12,8 @@
 ?>
 Hello,<br/>
 Click on the following link to activate your account:<br/>
-<?= Html::a('Activate Account', Yii::$app->urlManager->createUrl('//user/registration/confirm/') .
-                                $user->auth_key, ['class' => 'btn btn-lg btn-success']) ?>
+<?= Html::a('Activate Account', ['//user/registration/confirm', 'id' => $user->id, 'code' => $user->auth_key],
+            ['class' => 'btn btn-lg btn-success']) ?>
 Your account on <?= Yii::$app->name ?> has been successfully created. You can use your email address to log in.<br/>
 
 Email Id: <?= $user->email ?><br>
