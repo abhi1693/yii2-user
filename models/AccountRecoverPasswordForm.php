@@ -40,7 +40,6 @@
 				$user->save(FALSE);
 			}
 
-			// todo send mail
 			$mailer           = Yii::$app->mailer;
 			$mailer->viewPath = '@abhimanyu/user/views/mail';
 			$mailer->compose('recovery', ['user' => $user])
