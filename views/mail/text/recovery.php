@@ -10,8 +10,8 @@
 
 	/** @var $user \abhimanyu\user\models\User */
 ?>
-Hello
-,
+Hello,
+
 You have recently requested to reset your password. In order to complete your request, we need you to verify that
 you initiated this request. Please click the link below to complete your password reset.
 
