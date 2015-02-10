@@ -14,9 +14,6 @@
 
 	class Mailer extends Component
 	{
-		/** @var string */
-		public $viewPath = '@abhimanyu/user/views/mail';
-
 		/**
 		 * Sends welcome mail to the user upon registration
 		 *
@@ -42,7 +39,7 @@
 		protected function sendMail($to, $subject, $view, $params = [])
 		{
 			$mailer           = Yii::$app->mailer;
-			$mailer->viewPath = $this->viewPath;
+			$mailer->viewPath = '@abhimanyu/user/views/mail';
 
 			return $mailer->compose(['html' => $view, 'text' => 'text/' . $view], $params)
 				->setTo($to)
