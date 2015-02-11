@@ -13,6 +13,7 @@
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
+	use yii\web\NotFoundHttpException;
 
 	/**
 	 * Controller that manages user registration process.
@@ -30,7 +31,7 @@
 					'rules' => [
 						[
 							'allow'   => TRUE,
-							'actions' => ['register'],
+							'actions' => ['register', 'confirm'],
 							'roles'   => ['?']
 						]
 					]
@@ -52,11 +53,33 @@
 				// Send Welcome Message to activate the account
 				Mailer::sendWelcomeMessage($model);
 
-				Yii::$app->session->setFlash('success', 'You\'ve successfully been registered. Check your mail to activate your account');
+				Yii::$app->session->setFlash(
+					'success', 'You\'ve successfully been registered. Check your mail to activate your account');
 
 				return $this->redirect(Yii::$app->urlManager->createUrl('//user/auth/login'));
 			}
 
 			return $this->render('register', ['model' => $model]);
+		}
+
+		/**
+		 * Confirms user's account.
+		 *
+		 * @param integer $id   User Id
+		 * @param string  $code Activation Token
+		 *
+		 * @return string
+		 * @throws \yii\web\NotFoundHttpException
+		 */
+		public function actionConfirm($id, $code)
+		{
+			$user = User::findByActivationToken($id, $code);
+
+			if ($user == NULL)
+				throw new NotFoundHttpException;
+
+			Yii::$app->session->setFlash('success', 'Account ' . $user->email . ' has successfully been activated');
+
+			return $this->render('confirm', ['user' => $user]);
 		}
 	}

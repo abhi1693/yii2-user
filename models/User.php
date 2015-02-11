@@ -18,6 +18,7 @@
 	 * @property string  $password_reset_token
 	 * @property string  $email
 	 * @property string  $auth_key
+	 * @property string  $activation_token
 	 * @property integer $super_admin
 	 * @property integer $status
 	 * @property integer $created_at
@@ -109,6 +110,23 @@
 			$timestamp = (int)end($parts);
 
 			return $timestamp + $expire >= time();
+		}
+
+		/**
+		 * Find User by activation token
+		 *
+		 * @param integer $id   User Id
+		 * @param string  $code User Activation Token
+		 *
+		 * @return static
+		 */
+		public static function findByActivationToken($id, $code)
+		{
+			return static::findOne([
+				                       'id'               => $id,
+				                       'activation_token' => $code,
+				                       'status'           => self::STATUS_PENDING
+			                       ]);
 		}
 
 		/**
@@ -224,6 +242,7 @@
 		{
 			if ($insert) {
 				$this->generateAuthKey();
+				$this->generateActivationToken();
 			}
 
 			if ($this->password)
@@ -238,6 +257,14 @@
 		public function generateAuthKey()
 		{
 			$this->auth_key = Yii::$app->security->generateRandomString();
+		}
+
+		/**
+		 * Generates account activation token
+		 */
+		public function generateActivationToken()
+		{
+			$this->activation_token = Yii::$app->security->generateRandomString(24);
 		}
 
 		/**
@@ -302,7 +329,6 @@
 			$this->status = $status;
 
 			if ($this->save()) {
-				// todo send confirmation mail if option enabled
 				Yii::$app->user->login($this);
 
 				return TRUE;
