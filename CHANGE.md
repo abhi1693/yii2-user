@@ -11,3 +11,4 @@ v0.0.1 [2014-02-09]
 - Fixed invalid routes
 - Fixed other small bugs
 - Simplified code
+- Update migration

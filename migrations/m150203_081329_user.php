@@ -16,7 +16,8 @@
 				'super_admin'          => Schema::TYPE_INTEGER,
 				'status'               => Schema::TYPE_INTEGER . ' NOT NULL',
 				'auth_key'             => Schema::TYPE_STRING,
-				'password_reset_token' => Schema::TYPE_STRING,
+				'activation_token'     => Schema::TYPE_STRING . '(24) DEFAULT NULL',
+				'password_reset_token' => Schema::TYPE_STRING . '(32) DEFAULT NULL',
 				'created_at'           => Schema::TYPE_DATETIME . ' NOT NULL',
 				'updated_at'           => Schema::TYPE_DATETIME . ' NOT NULL',
 			]);
