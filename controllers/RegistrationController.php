@@ -10,6 +10,7 @@
 
 	use abhimanyu\user\Mailer;
 	use abhimanyu\user\models\User;
+	use abhimanyu\user\models\UserIdentity;
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
@@ -73,7 +74,7 @@
 		 */
 		public function actionConfirm($id, $code)
 		{
-			$user = User::findByActivationToken($id, $code);
+			$user = UserIdentity::findByActivationToken($id, $code);
 
 			if ($user == NULL)
 				throw new NotFoundHttpException;
