@@ -56,7 +56,7 @@
 		public function getUser()
 		{
 			if ($this->_user === FALSE) {
-				$this->_user = User::findByUsername($this->username);
+				$this->_user = UserIdentity::findByUsername($this->username);
 			}
 
 			return $this->_user;
@@ -69,10 +69,6 @@
 		 */
 		public function login()
 		{
-			if ($this->validate()) {
-				return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-			} else {
-				return FALSE;
-			}
+			return $this->validate() ? Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0) : FALSE;
 		}
 	}
