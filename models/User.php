@@ -2,12 +2,11 @@
 
 	namespace abhimanyu\user\models;
 
+	use RuntimeException;
 	use Yii;
-	use yii\base\NotSupportedException;
 	use yii\behaviors\TimestampBehavior;
 	use yii\db\ActiveRecord;
 	use yii\db\Expression;
-	use yii\web\IdentityInterface;
 
 	/**
 	 * User model
@@ -25,14 +24,15 @@
 	 * @property integer $updated_at
 	 * @property string  $password write-only password
 	 */
-	class User extends ActiveRecord implements IdentityInterface
+	class User extends ActiveRecord
 	{
-		/**
-		 * User Status
-		 */
+		/** User Status - Blocked/Inactive */
 		const STATUS_BLOCKED = 0;
+		/** User Status - Active */
 		const STATUS_ACTIVE = 1;
+		/** User Status - Activation Pending */
 		const STATUS_PENDING = 2;
+
 		/** @var string Plain password. Used for model validation. */
 		public $password;
 		/** @var string Plain password. Used for model validation. */
@@ -44,53 +44,6 @@
 		public static function tableName()
 		{
 			return '{{%user}}';
-		}
-
-		/**
-		 * @inheritdoc
-		 */
-		public static function findIdentity($id)
-		{
-			return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-		}
-
-		/**
-		 * @inheritdoc
-		 */
-		public static function findIdentityByAccessToken($token, $type = NULL)
-		{
-			throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-		}
-
-		/**
-		 * Finds user by username
-		 *
-		 * @param string $username
-		 *
-		 * @return static|null
-		 */
-		public static function findByUsername($username)
-		{
-			return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-		}
-
-		/**
-		 * Finds user by password reset token
-		 *
-		 * @param string $token password reset token
-		 *
-		 * @return static|null
-		 */
-		public static function findByPasswordResetToken($token)
-		{
-			if (!static::isPasswordResetTokenValid($token)) {
-				return NULL;
-			}
-
-			return static::findOne([
-				                       'password_reset_token' => $token,
-				                       'status' => self::STATUS_ACTIVE,
-			                       ]);
 		}
 
 		/**
@@ -110,23 +63,6 @@
 			$timestamp = (int)end($parts);
 
 			return $timestamp + $expire >= time();
-		}
-
-		/**
-		 * Find User by activation token
-		 *
-		 * @param integer $id   User Id
-		 * @param string  $code User Activation Token
-		 *
-		 * @return static
-		 */
-		public static function findByActivationToken($id, $code)
-		{
-			return static::findOne([
-				                       'id'               => $id,
-				                       'activation_token' => $code,
-				                       'status'           => self::STATUS_PENDING
-			                       ]);
 		}
 
 		/**
@@ -150,7 +86,6 @@
 		{
 			return [
 				'register' => ['username', 'email', 'password', 'password_confirm'],
-				'create'  => ['username', 'email', 'password'],
 				'recover' => ['email']
 			];
 		}
@@ -162,14 +97,14 @@
 		{
 			return [
 				// username
-				['username', 'required', 'on' => ['register', 'create']],
+				['username', 'required', 'on' => ['register']],
 				['username', 'match', 'pattern' => '/^[a-zA-Z0-9_]\w+$/'],
 				['username', 'string', 'min' => 3, 'max' => 25],
 				['username', 'unique'],
 				['username', 'trim'],
 
 				// email
-				['email', 'required', 'on' => ['register', 'create']],
+				['email', 'required', 'on' => ['register']],
 				['email', 'email'],
 				['email', 'string', 'max' => 255],
 				['email', 'unique'],
@@ -177,7 +112,7 @@
 
 				// password
 				['password', 'required', 'on' => ['register']],
-				['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
+				['password', 'string', 'min' => 6, 'on' => ['register']],
 
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register']],
@@ -188,26 +123,11 @@
 		public function attributeLabels()
 		{
 			return [
-				'username'      => 'Username',
-				'password_hash' => 'Password',
-				'email'         => 'Email'
+				'username'         => 'Username',
+				'password_hash'    => 'Password',
+				'password_confirm' => 'Confirm Password',
+				'email'            => 'Email'
 			];
-		}
-
-		/**
-		 * @inheritdoc
-		 */
-		public function validateAuthKey($authKey)
-		{
-			return $this->getAuthKey() === $authKey;
-		}
-
-		/**
-		 * @inheritdoc
-		 */
-		public function getAuthKey()
-		{
-			return $this->auth_key;
 		}
 
 		/**
@@ -223,7 +143,7 @@
 		}
 
 		/**
-		 * Generates new password reset token
+		 * Generates new password reset token and assign to the model
 		 */
 		public function generatePasswordResetToken()
 		{
@@ -236,6 +156,14 @@
 		public function removePasswordResetToken()
 		{
 			$this->password_reset_token = NULL;
+		}
+
+		/**
+		 * Removes activation token
+		 */
+		public function removeActivationToken()
+		{
+			$this->activation_token = NULL;
 		}
 
 		public function beforeSave($insert)
@@ -301,14 +229,6 @@
 		}
 
 		/**
-		 * @inheritdoc
-		 */
-		public function getId()
-		{
-			return $this->getPrimaryKey();
-		}
-
-		/**
 		 * This method is used to register new user account.
 		 *
 		 * @param bool $isSuperAdmin
@@ -319,7 +239,7 @@
 		public function register($isSuperAdmin = FALSE, $status = 1)
 		{
 			if ($this->getIsNewRecord() == FALSE) {
-				throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
+				throw new RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
 			}
 
 			// Set to 1 if isSuperAdmin is true else set to 0
@@ -328,9 +248,8 @@
 			// Set status
 			$this->status = $status;
 
+			// Save user data to the database
 			if ($this->save()) {
-				Yii::$app->user->login($this);
-
 				return TRUE;
 			}
 

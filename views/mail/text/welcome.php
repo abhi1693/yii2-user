@@ -12,7 +12,7 @@
 ?>
 Hello,<br/>
 Click on the following link to activate your account:<br/>
-<?= Html::a('Activate Account', ['//user/registration/confirm', 'id' => $user->id, 'code' => $user->auth_key],
+<?= Html::a('Activate Account', ['//user/registration/confirm', 'id' => $user->id, 'code' => $user->activation_token],
             ['class' => 'btn btn-lg btn-success']) ?>
 Your account on <?= Yii::$app->name ?> has been successfully created. You can use your email address to log in.<br/>
 
