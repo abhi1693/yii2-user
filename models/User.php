@@ -150,22 +150,6 @@
 			$this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
 		}
 
-		/**
-		 * Removes password reset token
-		 */
-		public function removePasswordResetToken()
-		{
-			$this->password_reset_token = NULL;
-		}
-
-		/**
-		 * Removes activation token
-		 */
-		public function removeActivationToken()
-		{
-			$this->activation_token = NULL;
-		}
-
 		public function beforeSave($insert)
 		{
 			if ($insert) {

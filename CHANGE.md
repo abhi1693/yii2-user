@@ -12,3 +12,4 @@ v0.0.1 [2014-02-09]
 - Fixed other small bugs
 - Simplified code
 - Update migration
+- Fixed Account Activation
