@@ -79,7 +79,16 @@
 			if ($user == NULL)
 				throw new NotFoundHttpException;
 
-			Yii::$app->session->setFlash('success', 'Account ' . $user->email . ' has successfully been activated');
+			if (!empty($user)) {
+				$user->activation_token = NULL;
+				$user->status           = User::STATUS_ACTIVE;
+				$user->save(FALSE);
+
+				Yii::$app->session->setFlash('success', 'Account ' . $user->email . ' has successfully been activated');
+			}
+
+			Yii::$app->session->setFlash('danger', 'Account ' . $user->email . ' could not been activated. Please
+			contact the Administrator');
 
 			return $this->render('confirm', ['user' => $user]);
 		}
