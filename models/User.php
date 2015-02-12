@@ -86,7 +86,8 @@
 		{
 			return [
 				'register' => ['username', 'email', 'password', 'password_confirm'],
-				'recover' => ['email']
+				'recover' => ['email'],
+				'reset'   => ['password', 'password_confirm']
 			];
 		}
 
@@ -111,11 +112,11 @@
 				['email', 'trim'],
 
 				// password
-				['password', 'required', 'on' => ['register']],
-				['password', 'string', 'min' => 6, 'on' => ['register']],
+				['password', 'required', 'on' => ['register', 'reset']],
+				['password', 'string', 'min' => 6, 'on' => ['register', 'reset']],
 
 				// password confirm
-				['password_confirm', 'required', 'on' => ['register']],
+				['password_confirm', 'required', 'on' => ['register', 'reset']],
 				['password_confirm', 'compare', 'compareAttribute' => 'password']
 			];
 		}

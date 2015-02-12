@@ -60,18 +60,20 @@
 		/**
 		 * Finds user by password reset token
 		 *
-		 * @param string $token password reset token
+		 * @param integer $id   user id
+		 * @param string  $code password reset token
 		 *
-		 * @return static|null
+		 * @return null|static
 		 */
-		public static function findByPasswordResetToken($token)
+		public static function findByPasswordResetToken($id, $code)
 		{
-			if (!static::isPasswordResetTokenValid($token)) {
+			if (!static::isPasswordResetTokenValid($code)) {
 				return NULL;
 			}
 
 			return static::findOne([
-				                       'password_reset_token' => $token,
+				                       'id'                   => $id,
+				                       'password_reset_token' => $code,
 				                       'status'               => self::STATUS_ACTIVE,
 			                       ]);
 		}
