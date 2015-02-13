@@ -10,13 +10,7 @@
 
 	class UserModule extends Module
 	{
-		const VERSION = '0.0.1';
-
-		public function init()
-		{
-			$this->setAliases(['@user' => __DIR__]);
-			parent::init();
-		}
+		const VERSION = '0.0.2-dev';
 
 		/**
 		 * We just check whether module is installed and user is logged in.
@@ -41,5 +35,11 @@
 				return FALSE;
 
 			return !Yii::$app->user->isGuest;
+		}
+
+		public function init()
+		{
+			$this->setAliases(['@user' => __DIR__]);
+			parent::init();
 		}
 	}
