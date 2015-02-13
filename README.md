@@ -35,7 +35,7 @@ Contributing instructions are located in [CONTRIBUTING.md](CONTRIBUTING.md) file
 ## Roadmap
 
 - [x] User Registration
-- [ ] Password Retrieval
+- [x] Password Retrieval
 - [ ] Account Management
 - [ ] Profile Management
 - [ ] Console Commands
