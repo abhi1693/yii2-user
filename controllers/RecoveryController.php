@@ -82,6 +82,6 @@
 				}
 			}
 
-			return $this->render('reset', ['user' => $user]);
+			return $this->render('reset', ['model' => $model]);
 		}
 	}
