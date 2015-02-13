@@ -143,14 +143,6 @@
 			return Yii::$app->security->validatePassword($password, $this->password_hash);
 		}
 
-		/**
-		 * Generates new password reset token and assign to the model
-		 */
-		public function generatePasswordResetToken()
-		{
-			$this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-		}
-
 		public function beforeSave($insert)
 		{
 			if ($insert) {
