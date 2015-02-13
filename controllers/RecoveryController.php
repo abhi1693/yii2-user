@@ -10,7 +10,6 @@
 
 	use abhimanyu\user\models\AccountRecoverPasswordForm;
 	use abhimanyu\user\models\User;
-	use abhimanyu\user\models\UserIdentity;
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
@@ -61,14 +60,18 @@
 		 */
 		public function actionReset($id, $code)
 		{
-			$user            = UserIdentity::findByPasswordResetToken($id, $code);
-			$model           = new User();
-			$model->scenario = 'reset';
+			$model = User::findOne([
+				                       'id'                   => $id,
+				                       'password_reset_token' => $code,
+				                       'status'               => User::STATUS_ACTIVE
+			                       ]);
 
-			if ($user == NULL)
+			if ($model == NULL)
 				throw new NotFoundHttpException;
 
-			if (!empty($user)) {
+			$model->scenario = 'reset';
+
+			if (!empty($model)) {
 				if ($model->load(Yii::$app->request->post())) {
 					if ($model->validate()) {
 						$model->password_reset_token = NULL;
