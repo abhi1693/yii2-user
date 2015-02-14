@@ -232,4 +232,12 @@
 
 			return FALSE;
 		}
+
+		/**
+		 * @return bool Whether the user is an admin or not.
+		 */
+		public function getIsAdmin()
+		{
+			return $this->super_admin == 1;
+		}
 	}
