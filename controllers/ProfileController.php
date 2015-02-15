@@ -9,6 +9,7 @@
 	namespace abhimanyu\user\controllers;
 
 	use abhimanyu\user\models\Profile;
+	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
 	use yii\web\NotFoundHttpException;
@@ -24,7 +25,11 @@
 				'access' => [
 					'class' => AccessControl::className(),
 					'rules' => [
-						['allow' => TRUE, 'actions' => ['index'], 'roles' => ['@']]
+						[
+							'allow'   => TRUE,
+							'actions' => ['index'],
+							'roles'   => ['@']
+						]
 					]
 				],
 			];
@@ -33,14 +38,12 @@
 		/**
 		 * Shows user's profile.
 		 *
-		 * @param  integer $id
-		 *
 		 * @return \yii\web\Response
 		 * @throws \yii\web\NotFoundHttpException
 		 */
-		public function index($id)
+		public function actionIndex()
 		{
-			$profile = Profile::findOne(['uid' => $id]);
+			$profile = Profile::findOne(['uid' => Yii::$app->user->id]);
 
 			if ($profile == NULL)
 				throw new NotFoundHttpException;
