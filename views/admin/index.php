@@ -10,6 +10,7 @@
 
 	/** @var $this \yii\web\View */
 	/** @var $dataProvider \abhimanyu\user\models\UserSearch */
+	/** @var $searchModel \abhimanyu\user\models\UserSearch */
 
 	$this->title = 'User Admin - ' . Yii::$app->name;
 ?>
@@ -21,6 +22,16 @@
 
 		<?= GridView::widget([
 			                     'dataProvider' => $dataProvider,
+			                     'filterModel' => $searchModel,
+			                     'columns'     => [
+				                     ['class' => \kartik\grid\SerialColumn::className()],
+				                     'username',
+				                     'email',
+				                     ['class' => \kartik\grid\ActionColumn::className()]
+			                     ],
+			                     'responsive'  => TRUE,
+			                     'hover'       => TRUE,
+			                     'condensed'   => TRUE,
 			                     'export'       => FALSE
 		                     ]) ?>
 	</div>
