@@ -1,6 +1,7 @@
 Yii2-User
 =========
 
+[![Dependency Status](https://www.versioneye.com/user/projects/54e1e6490a910b6b0100023e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54e1e6490a910b6b0100023e)
 [![Code Climate](https://codeclimate.com/github/abhi1693/yii2-user/badges/gpa.svg)](https://codeclimate.com/github/abhi1693/yii2-user)
 [![Latest Stable Version](https://poser.pugx.org/abhi1693/yii2-user/v/stable.svg)](https://packagist.org/packages/abhi1693/yii2-user) [![Total Downloads](https://poser.pugx.org/abhi1693/yii2-user/downloads.svg)](https://packagist.org/packages/abhi1693/yii2-user) [![Latest Unstable Version](https://poser.pugx.org/abhi1693/yii2-user/v/unstable.svg)](https://packagist.org/packages/abhi1693/yii2-user) [![License](https://poser.pugx.org/abhi1693/yii2-user/license.svg)](https://packagist.org/packages/abhi1693/yii2-user)
 
