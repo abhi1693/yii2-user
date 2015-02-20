@@ -20,7 +20,8 @@
 		<p>In this overview you can find every registered user and manage him.</p>
 
 		<?= GridView::widget([
-			                     'dataProvider' => $dataProvider
+			                     'dataProvider' => $dataProvider,
+			                     'export'       => FALSE
 		                     ]) ?>
 	</div>
 </div>
