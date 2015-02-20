@@ -12,7 +12,7 @@
 	/** @var $profile \abhimanyu\user\models\Profile */
 
 	$this->title = empty($profile->name_first)
-		? Html::encode($profile->getUser()->username)
+		? Html::encode(Yii::$app->user->identity->username)
 		: Html::encode($profile->name_first . ' ' . $profile->name_last);
 ?>
 
