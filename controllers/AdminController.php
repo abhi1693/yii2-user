@@ -81,8 +81,8 @@
 		 */
 		protected function findModel($id)
 		{
-			$user = new User();
-			$user->findOne(['id' => $id]);
+			$user = User::findOne(['id' => $id]);;
+
 			if ($user === NULL) {
 				throw new NotFoundHttpException('The requested page does not exist');
 			}
