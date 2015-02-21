@@ -25,13 +25,13 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'actions' => ['index'],
+							'actions' => ['index', 'delete'],
 							'allow'   => TRUE,
 							'roles'   => ['@'],
 						],
 					],
 				],
-				'verb' => [
+				'verb'   => [
 					'class'   => VerbFilter::className(),
 					'actions' => [
 						'delete' => ['post']
