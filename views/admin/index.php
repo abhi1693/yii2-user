@@ -25,6 +25,14 @@
 			                     'filterModel' => $searchModel,
 			                     'columns'     => [
 				                     ['class' => \kartik\grid\SerialColumn::className()],
+				                     [
+					                     'header' => '',
+					                     'value'  => function ($model) {
+						                     // todo implement profile pic
+						                     //return Html::img('');
+					                     },
+					                     'format' => 'raw',
+				                     ],
 				                     'username',
 				                     'email',
 				                     ['class' => \kartik\grid\ActionColumn::className()]
