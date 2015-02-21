@@ -32,8 +32,10 @@
 					],
 				],
 				'verb' => [
-					'class'  => VerbFilter::className(),
-					'delete' => ['post']
+					'class'   => VerbFilter::className(),
+					'actions' => [
+						'delete' => ['post']
+					]
 				]
 			];
 		}
