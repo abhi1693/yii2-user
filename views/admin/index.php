@@ -14,6 +14,9 @@
 
 	$this->title = 'User Admin - ' . Yii::$app->name;
 ?>
+
+<?= $this->render('/alert') ?>
+
 <div class="panel panel-default">
 	<div class="panel-heading">Manage Users</div>
 
