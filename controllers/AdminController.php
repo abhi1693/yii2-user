@@ -57,11 +57,6 @@
 
 			if ($id == Yii::$app->user->getId()) {
 				Yii::$app->getSession()->setFlash('danger', 'You can not remove your own account');
-			} elseif (User::find()->where(['super_admin' => 1, 'id' => $id]) &&
-			          User::find()->where(['super_admin' => 1])->count() == 1
-			) {
-				Yii::$app->getSession()->setFlash('danger', 'You can not remove this account. Please transfer your
-				ownership before deleting your account.');
 			} else {
 				$model->delete();
 				Yii::$app->getSession()->setFlash('success', 'User has been deleted');
