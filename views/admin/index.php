@@ -48,6 +48,6 @@
 	                     'export'       => FALSE,
 	                     'panel'        => [
 		                     'heading' => 'Manage Users',
-		                     'before' => Html::a('Create User', ['/'], ['class' => 'btn btn-primary'])
+		                     'before' => Html::a('Create User', ['create'], ['class' => 'btn btn-primary'])
 	                     ]
                      ]) ?>
