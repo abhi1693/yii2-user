@@ -8,6 +8,7 @@
 
 	namespace abhimanyu\user\controllers;
 
+	use abhimanyu\user\Mailer;
 	use abhimanyu\user\models\User;
 	use abhimanyu\user\models\UserSearch;
 	use Yii;
@@ -25,7 +26,7 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'actions' => ['index', 'delete'],
+							'actions' => ['index', 'delete', 'create'],
 							'allow'   => TRUE,
 							'roles'   => ['@'],
 						],
@@ -51,6 +52,30 @@
 			]);
 		}
 
+		public function actionCreate()
+		{
+			$model           = new User();
+			$model->scenario = 'create';
+
+			if ($model->load(Yii::$app->request->post())) {
+				if ($model->super_admin === '0')
+					$model->super_admin = FALSE;
+				else
+					$model->super_admin = TRUE;
+
+				$model->create($model->super_admin);
+
+				Mailer::sendWelcomeMessage($model);
+
+				Yii::$app->session->setFlash('success', 'User has been created');
+
+				return $this->redirect(['index']);
+			}
+
+			return $this->render('create', ['model' => $model]);
+		}
+
+		// todo: add more conditions
 		public function actionDelete($id)
 		{
 			$model = $this->findModel($id);

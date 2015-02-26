@@ -7,6 +7,7 @@
 	 */
 
 	use kartik\grid\GridView;
+	use yii\helpers\Html;
 
 	/** @var $this \yii\web\View */
 	/** @var $dataProvider \abhimanyu\user\models\UserSearch */
@@ -17,33 +18,29 @@
 
 <?= $this->render('/alert') ?>
 
-<div class="panel panel-default">
-	<div class="panel-heading">Manage Users</div>
-
-	<div class="panel-body">
-		<p>In this overview you can find every registered user and manage him.</p>
-
-		<?= GridView::widget([
-			                     'dataProvider' => $dataProvider,
-			                     'filterModel' => $searchModel,
-			                     'columns'     => [
-				                     ['class' => \kartik\grid\SerialColumn::className()],
-				                     [
-					                     'header' => '',
-					                     'value'  => function ($model) {
-						                     // todo implement profile pic
-						                     //return Html::img('');
-					                     },
-					                     'format' => 'raw',
-				                     ],
-				                     'username',
-				                     'email',
-				                     ['class' => \kartik\grid\ActionColumn::className()]
-			                     ],
-			                     'responsive'  => TRUE,
-			                     'hover'       => TRUE,
-			                     'condensed'   => TRUE,
-			                     'export'       => FALSE
-		                     ]) ?>
-	</div>
-</div>
+<?= GridView::widget([
+	                     'dataProvider' => $dataProvider,
+	                     'filterModel'  => $searchModel,
+	                     'columns'      => [
+		                     ['class' => \kartik\grid\SerialColumn::className()],
+		                     [
+			                     'header' => '',
+			                     'value'  => function ($model) {
+				                     // todo implement profile pic
+				                     //return Html::img('');
+			                     },
+			                     'format' => 'raw',
+		                     ],
+		                     'username',
+		                     'email',
+		                     ['class' => \kartik\grid\ActionColumn::className()]
+	                     ],
+	                     'responsive'   => TRUE,
+	                     'hover'        => TRUE,
+	                     'condensed'    => TRUE,
+	                     'export'       => FALSE,
+	                     'panel'        => [
+		                     'heading' => 'Manage Users',
+		                     'before'  => Html::a('Create User', ['/'], ['class' => 'btn btn-primary'])
+	                     ]
+                     ]) ?>

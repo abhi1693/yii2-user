@@ -87,7 +87,8 @@
 			return [
 				'register' => ['username', 'email', 'password', 'password_confirm'],
 				'recover' => ['email'],
-				'reset'   => ['password', 'password_confirm']
+				'reset'   => ['password', 'password_confirm'],
+				'create'  => ['username', 'email', 'password']
 			];
 		}
 
@@ -98,26 +99,34 @@
 		{
 			return [
 				// username
-				['username', 'required', 'on' => ['register']],
+				['username', 'required', 'on' => ['register', 'create']],
 				['username', 'match', 'pattern' => '/^[a-zA-Z0-9_]\w+$/'],
 				['username', 'string', 'min' => 3, 'max' => 25],
 				['username', 'unique'],
 				['username', 'trim'],
 
 				// email
-				['email', 'required', 'on' => ['register']],
+				['email', 'required', 'on' => ['register', 'create']],
 				['email', 'email'],
 				['email', 'string', 'max' => 255],
 				['email', 'unique'],
 				['email', 'trim'],
 
 				// password
-				['password', 'required', 'on' => ['register', 'reset']],
-				['password', 'string', 'min' => 6, 'on' => ['register', 'reset']],
+				['password', 'required', 'on' => ['register', 'reset', 'create']],
+				['password', 'string', 'min' => 6, 'on' => ['register', 'reset', 'create']],
 
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register', 'reset']],
-				['password_confirm', 'compare', 'compareAttribute' => 'password']
+				['password_confirm', 'compare', 'compareAttribute' => 'password'],
+
+				// status
+				['status', 'required', 'on' => ['create']],
+				['status', 'integer'],
+
+				// super_admin
+				['super_admin', 'required', 'on' => ['create']],
+				['super_admin', 'boolean']
 			];
 		}
 
@@ -239,5 +248,25 @@
 		public function getIsAdmin()
 		{
 			return $this->super_admin == 1;
+		}
+
+		public function create($isSuperAdmin = FALSE)
+		{
+			if ($this->getIsNewRecord() == FALSE) {
+				throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
+			}
+
+			// Set to 1 if isSuperAdmin is true else set to 0
+			$this->super_admin = $isSuperAdmin ? 1 : 0;
+
+			// Set status
+			$this->status = User::STATUS_PENDING;
+
+			// Save user data to the database
+			if ($this->save(FALSE)) {
+				return TRUE;
+			}
+
+			return FALSE;
 		}
 	}
