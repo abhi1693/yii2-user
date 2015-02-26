@@ -12,6 +12,15 @@
 	{
 		const VERSION = '0.0.2-dev';
 
+		public function init()
+		{
+			if (!$this->hasUser()) {
+				throw new \yii\base\Exception('Please configure User module before proceeding');
+			}
+			$this->setAliases(['@user' => __DIR__]);
+			parent::init();
+		}
+
 		/**
 		 * We just check whether module is installed and user is logged in.
 		 *
@@ -35,11 +44,5 @@
 				return FALSE;
 
 			return !Yii::$app->user->isGuest;
-		}
-
-		public function init()
-		{
-			$this->setAliases(['@user' => __DIR__]);
-			parent::init();
 		}
 	}
