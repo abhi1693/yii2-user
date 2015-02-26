@@ -119,14 +119,6 @@
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register', 'reset']],
 				['password_confirm', 'compare', 'compareAttribute' => 'password'],
-
-				// status
-				['status', 'required', 'on' => ['create']],
-				['status', 'integer'],
-
-				// super_admin
-				['super_admin', 'required', 'on' => ['create']],
-				['super_admin', 'boolean']
 			];
 		}
 
@@ -263,10 +255,24 @@
 			$this->status = User::STATUS_PENDING;
 
 			// Save user data to the database
-			if ($this->save(FALSE)) {
+			if ($this->save()) {
 				return TRUE;
 			}
 
 			return FALSE;
+		}
+
+		public function getIsStatus()
+		{
+			switch ($this->status) {
+				case User::STATUS_PENDING:
+					return '<div class="text-center"><span class="text-primary">Pending</span></div>';
+				case User::STATUS_ACTIVE:
+					return '<div class="text-center"><span class="text-success">Active</span></div>';
+				case User::STATUS_BLOCKED:
+					return '<div class="text-center"><span class="text-danger">Blocked</span></div>';
+			}
+
+			return NULL;
 		}
 	}

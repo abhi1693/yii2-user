@@ -33,6 +33,13 @@
 		                     ],
 		                     'username',
 		                     'email',
+		                     [
+			                     'header' => 'Status',
+			                     'value'  => function ($model) {
+				                     return $model->isStatus;
+			                     },
+			                     'format' => 'raw'
+		                     ],
 		                     ['class' => \kartik\grid\ActionColumn::className()]
 	                     ],
 	                     'responsive'   => TRUE,
@@ -41,6 +48,6 @@
 	                     'export'       => FALSE,
 	                     'panel'        => [
 		                     'heading' => 'Manage Users',
-		                     'before' => Html::a('Create User', ['create'], ['class' => 'btn btn-primary'])
+		                     'before' => Html::a('Create User', ['/'], ['class' => 'btn btn-primary'])
 	                     ]
                      ]) ?>
