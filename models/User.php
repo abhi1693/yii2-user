@@ -262,6 +262,11 @@
 			return FALSE;
 		}
 
+		/**
+		 * Returns user's status
+		 *
+		 * @return null|string
+		 */
 		public function getIsStatus()
 		{
 			switch ($this->status) {
@@ -274,5 +279,27 @@
 			}
 
 			return NULL;
+		}
+
+		/**
+		 * Returns TRUE if user is confirmed else FALSE
+		 *
+		 * @return bool
+		 */
+		public function getIsConfirmed()
+		{
+			return $this->status != User::STATUS_PENDING;
+		}
+
+		/**
+		 * Confirms user and sets status to ACTIVE
+		 */
+		public function confirm()
+		{
+			$this->status = User::STATUS_ACTIVE;
+			if ($this->save(FALSE))
+				return TRUE;
+
+			return FALSE;
 		}
 	}

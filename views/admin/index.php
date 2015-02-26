@@ -40,7 +40,34 @@
 			                     },
 			                     'format' => 'raw'
 		                     ],
-		                     ['class' => \kartik\grid\ActionColumn::className()]
+		                     [
+			                     'class'    => \kartik\grid\ActionColumn::className(),
+			                     'template' => '{confirm} {delete}',
+			                     'buttons'  => [
+				                     'confirm' => function ($url, $model) {
+					                     if ($model->isConfirmed) {
+						                     return Html::a('<i class="glyphicon glyphicon-ok"></i>', NULL, [
+							                     'class' => 'btn btn-xs btn-default',
+						                     ]);
+					                     } else {
+						                     return Html::a('<i class="glyphicon glyphicon-ok"></i>', $url, [
+							                     'class'        => 'btn btn-xs btn-success',
+							                     'data-method'  => 'post',
+							                     'data-confirm' => 'Are you sure to confirm this user?',
+							                     'title'        => 'Confirm User'
+						                     ]);
+					                     }
+				                     },
+				                     'delete'  => function ($url, $model) {
+					                     return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
+						                     'class'        => 'btn btn-xs btn-danger',
+						                     'data-method'  => 'post',
+						                     'data-confirm' => 'Are you sure to delete this user?',
+						                     'title'        => 'Delete User',
+					                     ]);
+				                     }
+			                     ]
+		                     ]
 	                     ],
 	                     'responsive'   => TRUE,
 	                     'hover'        => TRUE,

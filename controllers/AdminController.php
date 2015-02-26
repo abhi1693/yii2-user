@@ -26,7 +26,7 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'actions' => ['index', 'delete', 'create'],
+							'actions' => ['index', 'delete', 'create', 'confirm'],
 							'allow'   => TRUE,
 							'roles'   => ['@'],
 						],
@@ -68,20 +68,17 @@
 			return $this->render('create', ['model' => $model]);
 		}
 
-		// todo: add more conditions
-		public function actionDelete($id)
+		public function actionConfirm($id)
 		{
-			$model = $this->findModel($id);
+			$user = $this->findModel($id);
+			$user->confirm();
+			
+			Yii::$app->getSession()->setFlash('success', 'User has been confirmed');
 
-			if ($id == Yii::$app->user->getId()) {
-				Yii::$app->getSession()->setFlash('danger', 'You can not remove your own account');
-			} else {
-				$model->delete();
-				Yii::$app->getSession()->setFlash('success', 'User has been deleted');
-			}
-
-			return $this->redirect(['index']);
+			return $this->redirect(Yii::$app->urlManager->createUrl('//user/admin/index'));
 		}
+
+		// todo: add more conditions
 
 		/**
 		 * Finds the User model based on its primary key value.
@@ -101,5 +98,19 @@
 			}
 
 			return $user;
+		}
+
+		public function actionDelete($id)
+		{
+			$model = $this->findModel($id);
+
+			if ($id == Yii::$app->user->getId()) {
+				Yii::$app->getSession()->setFlash('danger', 'You can not remove your own account');
+			} else {
+				$model->delete();
+				Yii::$app->getSession()->setFlash('success', 'User has been deleted');
+			}
+
+			return $this->redirect(['index']);
 		}
 	}
