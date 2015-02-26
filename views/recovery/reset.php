@@ -6,6 +6,7 @@
 	 * Time: 23:07
 	 */
 
+	use kartik\alert\AlertBlock;
 	use yii\helpers\Html;
 	use yii\widgets\ActiveForm;
 
@@ -13,6 +14,11 @@
 	/** @var $model \abhimanyu\user\models\User */
 
 	$this->title = 'Reset Password - ' . Yii::$app->name;
+
+	echo AlertBlock::widget([
+		                        'delay'           => 5000,
+		                        'useSessionFlash' => TRUE
+	                        ]);
 ?>
 
 <div class="row">

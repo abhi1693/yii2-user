@@ -1,10 +1,17 @@
 <?php
+
+	use kartik\alert\AlertBlock;
+
 	/** @var $model \abhimanyu\user\models\User */
 	/** @var $this \yii\web\View */
 
 	$this->title = 'Sign Up - ' . Yii::$app->name;
+
+	echo AlertBlock::widget([
+		                        'delay'           => 5000,
+		                        'useSessionFlash' => TRUE
+	                        ]);
 ?>
-<?= $this->render('/alert') ?>
 
 <div class="container" style="max-width: 400px;margin: 0 auto 20px;text-align: left;">
 	<div class="panel panel-default">

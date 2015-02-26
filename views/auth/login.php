@@ -1,11 +1,18 @@
 <?php
+
+	use kartik\alert\AlertBlock;
+
 	/* @var $model \abhimanyu\user\models\AccountLoginForm */
 	/* @var $canRegister bool */
 	/* @var $this \yii\web\View */
 
 	$this->title = 'Sign In - ' . Yii::$app->name;
+
+	echo AlertBlock::widget([
+		                        'delay'           => 5000,
+		                        'useSessionFlash' => TRUE
+	                        ]);
 ?>
-<?= $this->render('/alert') ?>
 
 <div class="container" style="text-align: center">
 	<div class="panel panel-default" id="login-form" style="max-width: 300px;margin: 0 auto 20px;text-align: left">

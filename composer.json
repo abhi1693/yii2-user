@@ -17,7 +17,8 @@
   ],
   "require": {
     "yiisoft/yii2": "*",
-    "kartik-v/yii2-grid": "dev-master"
+    "kartik-v/yii2-grid": "dev-master",
+    "kartik-v/yii2-widget-alert": "*"
   },
   "autoload": {
     "psr-4": {

@@ -1,10 +1,17 @@
 <?php
+
+	use kartik\alert\AlertBlock;
+
 	/** @var $model \abhimanyu\user\models\AccountRecoverPasswordForm */
 	/** @var $this \yii\web\View */
 
 	$this->title = 'Password Recovery - ' . Yii::$app->name;
+
+	echo AlertBlock::widget([
+		                        'delay'           => 5000,
+		                        'useSessionFlash' => TRUE
+	                        ]);
 ?>
-<?= $this->render('/alert') ?>
 
 <div class="container" style="text-align: center">
 	<div class="row">

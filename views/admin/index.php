@@ -6,6 +6,7 @@
 	 * Time: 13:58
 	 */
 
+	use kartik\alert\AlertBlock;
 	use kartik\grid\GridView;
 	use yii\helpers\Html;
 
@@ -14,9 +15,12 @@
 	/** @var $searchModel \abhimanyu\user\models\UserSearch */
 
 	$this->title = 'User Admin - ' . Yii::$app->name;
-?>
 
-<?= $this->render('/alert') ?>
+	echo AlertBlock::widget([
+		                        'delay'           => 5000,
+		                        'useSessionFlash' => TRUE
+	                        ]);
+?>
 
 <?= GridView::widget([
 	                     'dataProvider' => $dataProvider,
