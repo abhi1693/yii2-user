@@ -86,7 +86,7 @@
 
 				Yii::$app->session->setFlash('success', 'Account ' . $user->email . ' has successfully been activated');
 			} else
-				Yii::$app->session->setFlash('danger', 'Account ' . $user->email . ' could not been activated. Please
+				Yii::$app->session->setFlash('error', 'Account ' . $user->email . ' could not been activated. Please
 			contact the Administrator');
 
 			return $this->render('confirm', ['user' => $user]);

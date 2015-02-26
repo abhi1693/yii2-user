@@ -105,7 +105,7 @@
 			$model = $this->findModel($id);
 
 			if ($id == Yii::$app->user->getId()) {
-				Yii::$app->getSession()->setFlash('danger', 'You can not remove your own account');
+				Yii::$app->getSession()->setFlash('error', 'You can not remove your own account');
 			} else {
 				$model->delete();
 				Yii::$app->getSession()->setFlash('success', 'User has been deleted');
