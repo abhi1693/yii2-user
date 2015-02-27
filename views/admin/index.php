@@ -46,7 +46,7 @@
 		                     ],
 		                     [
 			                     'class'    => \kartik\grid\ActionColumn::className(),
-			                     'template' => '{confirm} {delete}',
+			                     'template' => '{confirm} {update} {delete}',
 			                     'buttons'  => [
 				                     'confirm' => function ($url, $model) {
 					                     if ($model->isConfirmed) {
@@ -62,6 +62,14 @@
 						                     ]);
 					                     }
 				                     },
+
+				                     'update' => function ($url, $model) {
+					                     return Html::a('<i class="glyphicon glyphicon-pencil"></i>', $url, [
+						                     'class' => 'btn btn-xs btn-primary',
+						                     'title' => 'Update User'
+					                     ]);
+				                     },
+
 				                     'delete'  => function ($url, $model) {
 					                     return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
 						                     'class'        => 'btn btn-xs btn-danger',
