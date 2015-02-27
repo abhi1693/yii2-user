@@ -10,7 +10,8 @@
 	use yii\widgets\ActiveForm;
 
 	/** @var $this \yii\web\View */
-	/** @var $model \abhimanyu\user\models\User */
+	/** @var $user \abhimanyu\user\models\User */
+	/** @var $profile \abhimanyu\user\models\Profile */
 
 	$this->title = 'Update User - ' . Yii::$app->name;
 
@@ -31,31 +32,64 @@
 		?>
 
 		<div class="form-group">
-			<?= $form->field($model, 'email')->textInput([
-				                                             'class'        => 'form-control',
-				                                             'autocomplete' => 'off',
-				                                             'autofocus'    => 'on'
-			                                             ]) ?>
+			<?= $form->field($user, 'email')->textInput([
+				                                            'class'        => 'form-control',
+				                                            'autocomplete' => 'off',
+				                                            'autofocus'    => 'on'
+			                                            ]) ?>
 		</div>
 
 		<div class="form-group">
-			<?= $form->field($model, 'username')->textInput([
-				                                                'class'        => 'form-control',
-				                                                'autocomplete' => 'off',
-			                                                ]) ?>
+			<?= $form->field($user, 'username')->textInput([
+				                                               'class'        => 'form-control',
+				                                               'autocomplete' => 'off',
+			                                               ]) ?>
 		</div>
 
 		<div class="form-group">
-			<?= $form->field($model, 'password')->passwordInput([
-				                                                    'class' => 'form-control',
-			                                                    ])->hint('Enter new password here otherwise leave
+			<?= $form->field($user, 'password')->passwordInput([
+				                                                   'class' => 'form-control',
+			                                                   ])->hint('Enter new password here otherwise leave
 			                                                    it blank') ?>
 		</div>
 
 		<div class="form-group">
 			<div class="checkbox">
-				<?= $form->field($model, 'super_admin')->checkbox() ?>
+				<?= $form->field($user, 'super_admin')->checkbox() ?>
 			</div>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<?= $form->field($profile, 'name_first')->textInput([
+				                                                    'class'        => 'form-control',
+				                                                    'autocomplete' => 'off',
+			                                                    ]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($profile, 'name_last')->textInput([
+				                                                   'class'        => 'form-control',
+				                                                   'autocomplete' => 'off',
+			                                                   ]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($profile, 'sex')->dropDownList([
+				                                                0 => 'Male',
+				                                                1 => 'Female'
+			                                                ],
+			                                                [
+				                                                'class'   => 'form-control',
+				                                                'options' =>
+					                                                [
+						                                                'sex' =>
+							                                                [
+								                                                'selected ' => TRUE
+							                                                ]
+					                                                ]
+			                                                ]) ?>
 		</div>
 
 		<div class="form-group">

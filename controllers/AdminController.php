@@ -9,6 +9,7 @@
 	namespace abhimanyu\user\controllers;
 
 	use abhimanyu\user\Mailer;
+	use abhimanyu\user\models\Profile;
 	use abhimanyu\user\models\User;
 	use abhimanyu\user\models\UserSearch;
 	use Yii;
@@ -102,14 +103,19 @@
 
 		public function actionUpdate($id)
 		{
-			$model           = $this->findModel($id);
-			$model->scenario = 'update';
+			$user           = $this->findModel($id);
+			$user->scenario = 'update';
+			$profile        = Profile::findOne(['uid' => $id]);
 
-			if ($model->load(Yii::$app->request->post()) && $model->update()) {
+			if ($user->load(Yii::$app->request->post()) &&
+			    $profile->load(Yii::$app->request->post()) &&
+			    $user->save() &&
+			    $profile->save()
+			) {
 				Yii::$app->getSession()->setFlash('success', 'User has been successfully updated');
 			}
 
-			return $this->render('update', ['model' => $model]);
+			return $this->render('update', ['user' => $user, 'profile' => $profile]);
 		}
 
 		public function actionBlock($id)
