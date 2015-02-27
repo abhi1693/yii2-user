@@ -103,6 +103,10 @@
 			$model           = $this->findModel($id);
 			$model->scenario = 'update';
 
+			if ($model->load(Yii::$app->request->post()) && $model->update()) {
+				Yii::$app->getSession()->setFlash('success', 'User has been successfully updated');
+			}
+
 			return $this->render('update', ['model' => $model]);
 		}
 

@@ -115,7 +115,7 @@
 
 				// password
 				['password', 'required', 'on' => ['register', 'reset', 'create']],
-				['password', 'string', 'min' => 6, 'on' => ['register', 'reset', 'create']],
+				['password', 'string', 'min' => 6, 'on' => ['register', 'reset', 'create', 'update']],
 
 				// password confirm
 				['password_confirm', 'required', 'on' => ['register', 'reset']],

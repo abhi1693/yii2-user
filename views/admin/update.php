@@ -48,7 +48,8 @@
 		<div class="form-group">
 			<?= $form->field($model, 'password')->passwordInput([
 				                                                    'class' => 'form-control',
-			                                                    ]) ?>
+			                                                    ])->hint('Enter new password here otherwise leave
+			                                                    it blank') ?>
 		</div>
 
 		<div class="form-group">
@@ -58,7 +59,7 @@
 		</div>
 
 		<div class="form-group">
-			<?= \yii\helpers\Html::submitButton('Update User') ?>
+			<?= \yii\helpers\Html::submitButton('Update User', ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php $form::end(); ?>
