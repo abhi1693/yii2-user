@@ -88,7 +88,8 @@
 				'register' => ['username', 'email', 'password', 'password_confirm'],
 				'recover' => ['email'],
 				'reset'   => ['password', 'password_confirm'],
-				'create'  => ['username', 'email', 'password']
+				'create'  => ['username', 'email', 'password'],
+				'update'  => ['username', 'email', 'password'],
 			];
 		}
 

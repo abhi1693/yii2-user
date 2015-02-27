@@ -78,8 +78,6 @@
 			return $this->redirect(Yii::$app->urlManager->createUrl('//user/admin/index'));
 		}
 
-		// todo: add more conditions
-
 		/**
 		 * Finds the User model based on its primary key value.
 		 * If the model is not found, a 404 HTTP exception will be thrown.
@@ -100,8 +98,17 @@
 			return $user;
 		}
 
+		public function actionUpdate($id)
+		{
+			$model           = $this->findModel($id);
+			$model->scenario = 'update';
+
+			return $this->render('update', ['model' => $model]);
+		}
+
 		public function actionDelete($id)
 		{
+			// todo: add more conditions
 			$model = $this->findModel($id);
 
 			if ($id == Yii::$app->user->getId()) {
