@@ -4,6 +4,7 @@ v0.0.2 [2014-02-13] [Work in progress]
 - Added User Profile
 - Added Admin Panel
 - Added User creation from admin panel
+- Added User updation from admin panel
 - Changed Alert widget
 
 v0.0.1 [2014-02-09]
