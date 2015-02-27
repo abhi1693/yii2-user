@@ -38,6 +38,16 @@
 		                     'username',
 		                     'email',
 		                     [
+			                     'attribute' => 'super_admin',
+			                     'value'     => function ($model) {
+				                     if ($model->super_admin == 1)
+					                     return '<div class="text-center text-success"><i class="glyphicon glyphicon-ok"></i></div>';
+				                     else
+					                     return '<div class="text-center text-danger"><i class="glyphicon glyphicon-remove"></i></div>';
+			                     },
+			                     'format'    => 'raw'
+		                     ],
+		                     [
 			                     'header' => 'Status',
 			                     'value'  => function ($model) {
 				                     return $model->isStatus;
