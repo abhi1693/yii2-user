@@ -33,7 +33,10 @@
 				[['name_last'], 'required'],
 
 				// sex
-				['sex', 'integer', 'max' => 1]
+				['sex', 'integer', 'max' => 1],
+
+				// avatar
+				['avatar', 'string', 'max' => 255]
 			];
 		}
 
@@ -43,7 +46,8 @@
 				'uid'        => 'User Id',
 				'name_first' => 'First Name',
 				'name_last'  => 'Last Name',
-				'sex'        => 'Gender'
+				'sex'    => 'Gender',
+				'avatar' => 'Avatar'
 			];
 		}
 
