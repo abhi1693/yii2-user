@@ -122,8 +122,12 @@
 					$user->unblock();
 					Yii::$app->getSession()->setFlash('success', 'User has been unblocked');
 				} else {
-					$user->block();
-					Yii::$app->getSession()->setFlash('success', 'User has been blocked');
+					if ($user->getIsConfirmed()) {
+						$user->block();
+						Yii::$app->getSession()->setFlash('success', 'User has been blocked');
+					} else {
+						Yii::$app->getSession()->setFlash('error', 'User cannot be blocked');
+					}
 				}
 			}
 
