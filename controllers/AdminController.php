@@ -26,7 +26,7 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'actions' => ['index', 'delete', 'create', 'confirm'],
+							'actions' => ['index', 'delete', 'create', 'confirm', 'update'],
 							'allow'   => TRUE,
 							'roles'   => ['@'],
 						],
