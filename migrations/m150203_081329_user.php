@@ -24,10 +24,11 @@
 
 			$this->createTable(Profile::tableName(), [
 				'id'         => Schema::TYPE_PK,
-				'uid' => Schema::TYPE_INTEGER . ' NOT NULL UNIQUE',
+				'uid'    => Schema::TYPE_INTEGER . ' NOT NULL UNIQUE',
 				'name_first' => Schema::TYPE_STRING . ' NOT NULL',
 				'name_last'  => Schema::TYPE_STRING,
 				'sex'        => Schema::TYPE_INTEGER,
+				'avatar' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
 			]);
 
 			$this->createIndex('uid_index', Profile::tableName(), 'uid', TRUE);
@@ -36,6 +37,7 @@
 
 		public function down()
 		{
+			$this->dropTable(Profile::tableName());
 			$this->dropTable(User::tableName());
 		}
 	}

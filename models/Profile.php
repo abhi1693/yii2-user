@@ -12,6 +12,7 @@
 	 * @property string  $name_first
 	 * @property string  $name_last
 	 * @property string  $sex
+	 * @property string  $avatar
 	 */
 	class Profile extends ActiveRecord
 	{
