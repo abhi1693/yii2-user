@@ -293,11 +293,47 @@
 		}
 
 		/**
+		 * Returns TRUE if user is blocked else FALSE
+		 *
+		 * @return bool
+		 */
+		public function getIsBlocked()
+		{
+			return $this->status == User::STATUS_BLOCKED;
+		}
+
+		/**
 		 * Confirms user and sets status to ACTIVE
 		 */
 		public function confirm()
 		{
 			$this->status = User::STATUS_ACTIVE;
+			if ($this->save(FALSE))
+				return TRUE;
+
+			return FALSE;
+		}
+
+		/**
+		 * Blocks the user and sets the status to BLOCKED
+		 */
+		public function block()
+		{
+			$this->status = User::STATUS_BLOCKED;
+
+			if ($this->save(FALSE))
+				return TRUE;
+
+			return FALSE;
+		}
+
+		/**
+		 * Unblocks the user and sets the status to ACTIVE
+		 */
+		public function unblock()
+		{
+			$this->status = User::STATUS_ACTIVE;
+
 			if ($this->save(FALSE))
 				return TRUE;
 

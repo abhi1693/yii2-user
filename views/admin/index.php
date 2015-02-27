@@ -46,7 +46,7 @@
 		                     ],
 		                     [
 			                     'class'    => \kartik\grid\ActionColumn::className(),
-			                     'template' => '{confirm} {update} {delete}',
+			                     'template' => '{confirm} {block} {update} {delete}',
 			                     'buttons'  => [
 				                     'confirm' => function ($url, $model) {
 					                     if ($model->isConfirmed) {
@@ -54,13 +54,27 @@
 					                     } else {
 						                     return Html::a('<i class="glyphicon glyphicon-ok"></i>', $url, [
 							                     'data-method'  => 'post',
-							                     'data-confirm' => 'Are you sure to confirm this user?',
+							                     'data-confirm' => 'Are you sure you want to confirm this user?',
 							                     'title'        => 'Confirm User'
 						                     ]);
 					                     }
 				                     },
 
-				                     'update' => function ($url, $model) {
+				                     'block'   => function ($url, $model) {
+					                     if ($model->isBlocked) {
+						                     $title = 'Unblock User';
+					                     } else {
+						                     $title = 'Block User';
+					                     }
+
+					                     return Html::a('<i class="glyphicon glyphicon-lock"></i>', $url, [
+						                     'data-method'  => 'post',
+						                     'data-confirm' => 'Are you sure you want to block this user?',
+						                     'title'        => $title
+					                     ]);
+				                     },
+
+				                     'update'  => function ($url, $model) {
 					                     return Html::a('<i class="glyphicon glyphicon-pencil"></i>', $url, [
 						                     'title' => 'Update User'
 					                     ]);

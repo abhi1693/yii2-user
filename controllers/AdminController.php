@@ -26,7 +26,7 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'actions' => ['index', 'delete', 'create', 'confirm', 'update'],
+							'actions' => ['index', 'delete', 'create', 'confirm', 'update', 'block'],
 							'allow'   => TRUE,
 							'roles'   => ['@'],
 						],
@@ -35,7 +35,9 @@
 				'verb'   => [
 					'class'   => VerbFilter::className(),
 					'actions' => [
-						'delete' => ['post']
+						'delete'  => ['post'],
+						'confirm' => ['post'],
+						'block'   => ['post']
 					]
 				]
 			];
@@ -108,6 +110,24 @@
 			}
 
 			return $this->render('update', ['model' => $model]);
+		}
+
+		public function actionBlock($id)
+		{
+			if ($id == Yii::$app->user->getId()) {
+				Yii::$app->getSession()->setFlash('error', 'You can not block your own account');
+			} else {
+				$user = $this->findModel($id);
+				if ($user->getIsBlocked()) {
+					$user->unblock();
+					Yii::$app->getSession()->setFlash('success', 'User has been unblocked');
+				} else {
+					$user->block();
+					Yii::$app->getSession()->setFlash('success', 'User has been blocked');
+				}
+			}
+
+			return $this->redirect(Yii::$app->urlManager->createUrl('//user/admin/index'));
 		}
 
 		public function actionDelete($id)
