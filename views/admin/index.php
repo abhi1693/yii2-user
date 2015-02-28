@@ -33,10 +33,10 @@
 			                     'value'  => function ($model) {
 				                     $avatar = Profile::findOne(['uid' => $model->id]);
 
-				                     return Html::img(Yii::$app->homeUrl . '/../../' . $avatar['avatar'], [
+				                     return '<div class="text-center">' . Html::img(Yii::$app->homeUrl . '/../../' . $avatar['avatar'], [
 					                     'width' => 30,
 					                     'alt'   => 'Profile Image'
-				                     ]);
+				                     ]) . '</div>';
 			                     },
 			                     'format' => 'raw',
 		                     ],
