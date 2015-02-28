@@ -7,6 +7,7 @@
 	 */
 
 	use kartik\alert\AlertBlock;
+	use kartik\file\FileInput;
 	use yii\widgets\ActiveForm;
 
 	/** @var $this \yii\web\View */
@@ -28,6 +29,7 @@
 		<?php
 			$form = ActiveForm::begin([
 				                          'enableAjaxValidation' => FALSE,
+				                          'options' => ['enctype' => 'multipart/form-data']
 			                          ]);
 		?>
 
@@ -57,6 +59,16 @@
 			<div class="checkbox">
 				<?= $form->field($user, 'super_admin')->checkbox() ?>
 			</div>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<?= FileInput::widget([
+				                      'model'     => $profile,
+				                      'attribute' => 'avatar',
+				                      'options'   => ['multiple' => FALSE]
+			                      ]) ?>
 		</div>
 
 		<hr>

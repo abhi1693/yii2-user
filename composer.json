@@ -19,7 +19,7 @@
     "yiisoft/yii2": "*",
     "kartik-v/yii2-grid": "dev-master",
     "kartik-v/yii2-widget-alert": "*",
-    "kartik-v/bootstrap-fileinput": "dev-master"
+    "kartik-v/yii2-widget-fileinput": "*"
   },
   "autoload": {
     "psr-4": {
