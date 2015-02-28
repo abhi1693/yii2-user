@@ -6,6 +6,7 @@
 	 * Time: 13:58
 	 */
 
+	use abhimanyu\user\models\Profile;
 	use kartik\alert\AlertBlock;
 	use kartik\grid\GridView;
 	use yii\helpers\Html;
@@ -30,8 +31,12 @@
 		                     [
 			                     'header' => '',
 			                     'value'  => function ($model) {
-				                     // todo implement profile pic
-				                     //return Html::img('');
+				                     $avatar = Profile::findOne(['uid' => $model->id]);
+
+				                     return Html::img($avatar['avatar'], [
+					                     'width' => 30,
+					                     'alt'   => 'Profile Image'
+				                     ]);
 			                     },
 			                     'format' => 'raw',
 		                     ],

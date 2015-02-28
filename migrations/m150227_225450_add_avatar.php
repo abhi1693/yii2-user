@@ -14,7 +14,8 @@
 	{
 		public function up()
 		{
-			$this->addColumn(Profile::tableName(), 'avatar', Schema::TYPE_STRING . '(255) DEFAULT NULL');
+			$this->addColumn(Profile::tableName(), 'avatar', Schema::TYPE_STRING . '(255) DEFAULT
+			"@user/uploads/default_user.jpg"');
 		}
 
 		public function down()
