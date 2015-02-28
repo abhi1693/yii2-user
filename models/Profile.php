@@ -46,8 +46,8 @@
 				'uid'        => 'User Id',
 				'name_first' => 'First Name',
 				'name_last'  => 'Last Name',
-				'sex'    => 'Gender',
-				'avatar' => 'Avatar'
+				'sex'        => 'Gender',
+				'avatar'     => 'Avatar'
 			];
 		}
 
