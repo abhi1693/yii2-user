@@ -58,7 +58,7 @@
 		</div>
 
 		<div class="form-group">
-			<?= \yii\helpers\Html::submitButton('Create User') ?>
+			<?= \yii\helpers\Html::submitButton('Create User', ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php $form::end(); ?>

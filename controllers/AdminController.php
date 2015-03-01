@@ -60,7 +60,8 @@
 			$model           = new User();
 			$model->scenario = 'create';
 
-			if ($model->load(Yii::$app->request->post()) && $model->create($model->super_admin === '0' ? FALSE : TRUE)) {
+			if ($model->load(Yii::$app->request->post()) && $model->create($model->super_admin === '0' ? TRUE : FALSE)
+			) {
 				Mailer::sendWelcomeMessage($model);
 
 				Yii::$app->session->setFlash('success', 'User has been created');
