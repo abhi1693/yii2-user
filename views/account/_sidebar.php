@@ -27,6 +27,7 @@
 			                 ],
 			                 'items'   => [
 				                 ['label' => 'Profile', 'url' => ['/user/account/profile']],
+				                 ['label' => 'Avatar', 'url' => ['/user/account/avatar']],
 			                 ]
 		                 ]) ?>
 	</div>
