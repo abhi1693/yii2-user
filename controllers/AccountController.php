@@ -22,7 +22,7 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'actions' => ['profile'],
+							'actions' => ['profile', 'avatar'],
 							'allow'   => TRUE,
 							'roles'   => ['@'],
 						],
@@ -40,5 +40,12 @@
 			}
 
 			return $this->render('profile', ['profile' => $profile]);
+		}
+
+		public function actionAvatar()
+		{
+			$profile = Profile::findOne(['uid' => \Yii::$app->user->getId()]);
+
+			return $this->render('avatar', ['profile' => $profile]);
 		}
 	}
