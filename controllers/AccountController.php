@@ -8,6 +8,8 @@
 
 	namespace abhimanyu\user\controllers;
 
+	use abhimanyu\user\models\Profile;
+	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
 
@@ -31,6 +33,12 @@
 
 		public function actionProfile()
 		{
-			return $this->render('profile');
+			$profile = Profile::findOne(['uid' => \Yii::$app->user->getId()]);
+
+			if ($profile->load(Yii::$app->request->post()) && $profile->save()) {
+				Yii::$app->getSession()->setFlash('User Profile successfully updated');
+			}
+
+			return $this->render('profile', ['profile' => $profile]);
 		}
 	}
