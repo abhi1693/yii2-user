@@ -24,8 +24,8 @@
 	<div class="col-md-9">
 
 		<?= AlertBlock::widget([
-			                       'useSession' => TRUE,
-			                       'delay'      => 5000
+			                       'useSessionFlash' => TRUE,
+			                       'delay'           => 5000
 		                       ]) ?>
 
 		<div class="panel panel-default">
