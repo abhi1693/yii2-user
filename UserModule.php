@@ -7,7 +7,7 @@
 
 	class UserModule extends Module
 	{
-		const VERSION = '0.0.2-dev';
+		const VERSION = '0.0.2';
 
 		public function init()
 		{
