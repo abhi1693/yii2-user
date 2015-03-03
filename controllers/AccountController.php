@@ -53,7 +53,7 @@
 		{
 			if (isset($_FILES['avatar'])) {
 				$avatar = $_FILES['avatar'];
-				$path   = Yii::$app->basePath . '/../uploads/profile_image/';
+				$path = '../vendor/abhi1693/yii2-user/uploads/profile_image/';
 
 				$model         = Profile::findOne(['uid' => Yii::$app->user->getId()]);
 				$model->avatar = 'vendor/abhi1693/yii2-user/uploads/profile_image/' . $avatar['name'];
@@ -62,6 +62,7 @@
 					if (move_uploaded_file($avatar['tmp_name'], $path . $avatar['name']))
 						return json_encode((object)NULL);
 					else {
+
 						return json_encode(['error' => 'An Error Occurred. Please try again!']);
 					}
 			}
