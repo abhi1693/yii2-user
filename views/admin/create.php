@@ -12,7 +12,7 @@
 	/** @var $this \yii\web\View */
 	/** @var $model \abhimanyu\user\models\User */
 
-	$this->title = 'Create User - ' . Yii::$app->name;
+	$this->title = Yii::t('user', 'Create User - ' . Yii::$app->name);
 
 	echo AlertBlock::widget([
 		                        'delay'           => 5000,
@@ -21,7 +21,7 @@
 ?>
 
 <div class="panel panel-default">
-	<div class="panel-heading">Create New User</div>
+	<div class="panel-heading"><?= Yii::t('user', 'Create New User') ?></div>
 
 	<div class="panel-body">
 		<?php
@@ -58,7 +58,7 @@
 		</div>
 
 		<div class="form-group">
-			<?= \yii\helpers\Html::submitButton('Create User', ['class' => 'btn btn-primary']) ?>
+			<?= \yii\helpers\Html::submitButton(Yii::t('user', Yii::t('user', 'Create User')), ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php $form::end(); ?>

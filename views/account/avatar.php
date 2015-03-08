@@ -14,7 +14,7 @@
 	/** @var $this \yii\web\View */
 	/** @var $profile \abhimanyu\user\models\Profile */
 
-	$this->title = 'Upload Avatar - ' . Yii::$app->name;
+	$this->title = Yii::t('user', 'Upload Avatar - ' . Yii::$app->name);
 ?>
 
 <div class="row">
@@ -30,7 +30,7 @@
 		                       ]) ?>
 
 		<div class="panel panel-default">
-			<div class="panel-heading"><?= Html::encode($this->title) ?></div>
+			<div class="panel-heading"><?= Yii::t('user', Html::encode($this->title)) ?></div>
 			<div class="panel-body">
 				<?= Html::img(Yii::$app->homeUrl . '/../../' . $profile['avatar'], [
 					'class' => 'img-responsive',

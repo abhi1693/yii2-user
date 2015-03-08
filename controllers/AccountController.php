@@ -9,6 +9,7 @@
 	namespace abhimanyu\user\controllers;
 
 	use abhimanyu\user\models\Profile;
+	use abhimanyu\user\models\UserIdentity;
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
@@ -68,5 +69,12 @@
 			}
 
 			return json_encode(['error' => 'An Error Occurred. Please try again!']);
+		}
+
+		public function actionEmail()
+		{
+			$user = UserIdentity::findByUsername(Yii::$app->user->identity->username);
+
+			return $this->render('email', ['user' => $user]);
 		}
 	}

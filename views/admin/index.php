@@ -15,7 +15,7 @@
 	/** @var $dataProvider \abhimanyu\user\models\UserSearch */
 	/** @var $searchModel \abhimanyu\user\models\UserSearch */
 
-	$this->title = 'User Admin - ' . Yii::$app->name;
+	$this->title = Yii::t('user', 'User Admin - ' . Yii::$app->name);
 
 	echo AlertBlock::widget([
 		                        'delay'           => 5000,
@@ -69,37 +69,37 @@
 					                     } else {
 						                     return Html::a('<i class="glyphicon glyphicon-ok"></i>', $url, [
 							                     'data-method'  => 'post',
-							                     'data-confirm' => 'Are you sure you want to confirm this user?',
-							                     'title'        => 'Confirm User'
+							                     'data-confirm' => Yii::t('user', 'Are you sure you want to confirm this user?'),
+							                     'title'        => Yii::t('user', 'Confirm User')
 						                     ]);
 					                     }
 				                     },
 
 				                     'block'   => function ($url, $model) {
 					                     if ($model->isBlocked) {
-						                     $title = 'Unblock User';
+						                     $title = Yii::t('user', 'Unblock User');
 					                     } else {
-						                     $title = 'Block User';
+						                     $title = Yii::t('user', 'Block User');
 					                     }
 
 					                     return Html::a('<i class="glyphicon glyphicon-lock"></i>', $url, [
 						                     'data-method'  => 'post',
-						                     'data-confirm' => 'Are you sure you want to block this user?',
+						                     'data-confirm' => Yii::t('user', 'Are you sure you want to block this user?'),
 						                     'title'        => $title
 					                     ]);
 				                     },
 
 				                     'update'  => function ($url, $model) {
 					                     return Html::a('<i class="glyphicon glyphicon-pencil"></i>', $url, [
-						                     'title' => 'Update User'
+						                     'title' => Yii::t('user', 'Update User')
 					                     ]);
 				                     },
 
 				                     'delete'  => function ($url, $model) {
 					                     return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
 						                     'data-method'  => 'post',
-						                     'data-confirm' => 'Are you sure to delete this user?',
-						                     'title'        => 'Delete User',
+						                     'data-confirm' => Yii::t('user', 'Are you sure to delete this user?'),
+						                     'title'        => Yii::t('user', 'Delete User'),
 					                     ]);
 				                     }
 			                     ]
@@ -110,7 +110,7 @@
 	                     'condensed'    => TRUE,
 	                     'export'       => FALSE,
 	                     'panel'        => [
-		                     'heading' => 'Manage Users',
-		                     'before' => Html::a('Create User', ['create'], ['class' => 'btn btn-primary'])
+		                     'heading' => Yii::t('user', 'Manage Users'),
+		                     'before'  => Html::a(Yii::t('user', 'Create User'), ['create'], ['class' => 'btn btn-primary'])
 	                     ]
                      ]) ?>

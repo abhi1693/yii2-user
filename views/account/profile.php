@@ -13,7 +13,7 @@
 	/** @var $this \yii\web\View */
 	/** @var $profile \abhimanyu\user\models\Profile */
 
-	$this->title = 'Profile Settings - ' . Yii::$app->name;
+	$this->title = Yii::t('user', 'Profile Settings - ' . Yii::$app->name);
 ?>
 
 <div class="row">
@@ -29,7 +29,7 @@
 		                       ]) ?>
 
 		<div class="panel panel-default">
-			<div class="panel-heading"><?= Html::encode($this->title) ?></div>
+			<div class="panel-heading"><?= Yii::t('user', Html::encode($this->title)) ?></div>
 			<div class="panel-body">
 				<?php $form = ActiveForm::begin([
 					                                'enableAjaxValidation' => FALSE
@@ -54,8 +54,8 @@
 
 				<div class="form-group">
 					<?= $form->field($profile, 'sex')->dropDownList([
-						                                                0 => 'Male',
-						                                                1 => 'Female'
+						                                                0 => Yii::t('user', 'Male'),
+						                                                1 => Yii::t('user', 'Female')
 					                                                ],
 					                                                [
 						                                                'class'   => 'form-control',
@@ -71,7 +71,7 @@
 
 				<hr>
 
-				<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+				<?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-primary']) ?>
 
 				<?php $form::end(); ?>
 			</div>
