@@ -3,6 +3,7 @@
 	namespace abhimanyu\user\controllers;
 
 	use abhimanyu\user\models\AccountLoginForm;
+	use abhimanyu\user\UserModule;
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\filters\VerbFilter;
@@ -53,7 +54,7 @@
 			if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->login())
 				return $this->redirect(Yii::$app->user->returnUrl);
 
-			return $this->render('login', ['model' => $model, 'canRegister' => Yii::$app->config->get('user.enableRegistration')]);
+			return $this->render('login', ['model' => $model, 'canRegister' => UserModule::$canRegister]);
 		}
 
 		/**

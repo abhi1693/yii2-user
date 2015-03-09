@@ -2,16 +2,27 @@
 
 	namespace abhimanyu\user;
 
+	use abhimanyu\installer\helpers\enums\Configuration as Enum;
 	use Yii;
 	use yii\base\Module;
 	use yii\i18n\PhpMessageSource;
 
 	class UserModule extends Module
 	{
+		/**
+		 * Module Version
+		 */
 		const VERSION = '0.0.3-dev';
+
+		/**
+		 * @var bool Checks whether the user can register
+		 */
+		public static $canRegister = FALSE;
 
 		public function init()
 		{
+			UserModule::$canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION) === 1 ? TRUE : FALSE;
+
 			$this->setAliases(['@user' => __DIR__]);
 			parent::init();
 			$this->registerTranslations();
