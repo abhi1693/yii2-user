@@ -2,6 +2,7 @@ v0.0.3-dev
 ----------
 
 - Added translations
+- Added Module Settings (GUI)
 
 v0.0.2 [2014-02-13]
 -------------------
