@@ -19,9 +19,15 @@
 		 */
 		public static $canRegister = 0;
 
+		/**
+		 * @var bool Checks whether the user can recover password
+		 */
+		public static $canRecoverPassword = 0;
+
 		public function init()
 		{
-			UserModule::$canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION);
+			UserModule::$canRegister        = Yii::$app->config->get(Enum::USER_REGISTRATION);
+			UserModule::$canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD);
 
 			$this->setAliases(['@user' => __DIR__]);
 			parent::init();

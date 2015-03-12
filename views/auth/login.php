@@ -6,6 +6,7 @@
 
 	/* @var $model \abhimanyu\user\models\AccountLoginForm */
 	/* @var $canRegister bool */
+	/* @var $canRecoverPassword bool */
 	/* @var $this \yii\web\View */
 
 	$this->title = 'Sign In - ' . Yii::$app->name;
@@ -41,13 +42,19 @@
 					<?= Html::submitButton('Sign In', ['class' => 'btn btn-large btn-primary']) ?>
 				</div>
 
-				<div class="col-md-8 text-right">
-					<small>
-						<?= Html::a('Forgot your password?',
-						            Yii::$app->urlManager->createUrl('//user/recovery/recover-password')
-						) ?>
-					</small>
-				</div>
+				<?php
+					if ($canRecoverPassword == 1) {
+						?>
+						<div class="col-md-8 text-right">
+							<small>
+								<?= Html::a('Forgot your password?',
+								            Yii::$app->urlManager->createUrl('//user/recovery/recover-password')
+								) ?>
+							</small>
+						</div>
+					<?php
+					}
+				?>
 			</div>
 
 			<?php

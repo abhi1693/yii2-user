@@ -12,21 +12,25 @@
 
 	class SettingsForm extends Model
 	{
-
 		public $canRegister;
+		public $canRecoverPassword;
 
 		public function rules()
 		{
 			return [
 				// Can Register
-				['canRegister', 'boolean']
+				['canRegister', 'boolean'],
+
+				// Can Recover Password
+				['canRecoverPassword', 'boolean']
 			];
 		}
 
 		public function attributeLabels()
 		{
 			return [
-				'canRegister' => 'Allow Registration?'
+				'canRegister'        => 'Allow Registration?',
+				'canRecoverPassword' => 'Allow Password Recovery?'
 			];
 		}
 	}

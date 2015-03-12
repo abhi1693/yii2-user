@@ -54,7 +54,11 @@
 			if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->login())
 				return $this->redirect(Yii::$app->user->returnUrl);
 
-			return $this->render('login', ['model' => $model, 'canRegister' => UserModule::$canRegister]);
+			return $this->render('login', [
+				'model'              => $model,
+				'canRegister'        => UserModule::$canRegister,
+				'canRecoverPassword' => UserModule::$canRecoverPassword
+			]);
 		}
 
 		/**

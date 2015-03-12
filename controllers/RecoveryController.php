@@ -10,6 +10,7 @@
 
 	use abhimanyu\user\models\AccountRecoverPasswordForm;
 	use abhimanyu\user\models\User;
+	use abhimanyu\user\UserModule;
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
@@ -26,7 +27,13 @@
 						[
 							'allow'   => TRUE,
 							'actions' => ['recover-password', 'reset'],
-							'roles'   => ['?']
+							'roles'         => ['?'],
+							'matchCallback' => function ($rule, $action) {
+								if (UserModule::$canRecoverPassword)
+									return TRUE;
+
+								return FALSE;
+							}
 						]
 					]
 				]

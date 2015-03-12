@@ -38,11 +38,13 @@
 
 		public function actionIndex()
 		{
-			$model              = new SettingsForm();
-			$model->canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION);
+			$model                     = new SettingsForm();
+			$model->canRegister        = Yii::$app->config->get(Enum::USER_REGISTRATION);
+			$model->canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD);
 
 			if ($model->load(Yii::$app->request->post())) {
 				Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
+				Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
 
 				Yii::$app->getSession()->setFlash('success', 'User module settings saved successfully');
 			}

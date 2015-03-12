@@ -39,6 +39,17 @@
 		</div>
 
 		<div class="form-group">
+			<div class="checkbox">
+				<?= $form->field($model, 'canRecoverPassword')
+					->checkbox([
+						           'options' => [
+							           'class' => 'form-control',
+						           ],
+					           ]) ?>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
 		</div>
 
