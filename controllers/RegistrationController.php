@@ -11,6 +11,7 @@
 	use abhimanyu\user\Mailer;
 	use abhimanyu\user\models\User;
 	use abhimanyu\user\models\UserIdentity;
+	use abhimanyu\user\UserModule;
 	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
@@ -31,9 +32,15 @@
 					'class' => AccessControl::className(),
 					'rules' => [
 						[
-							'allow'   => TRUE,
-							'actions' => ['register', 'confirm'],
-							'roles'   => ['?']
+							'allow'         => TRUE,
+							'actions'       => ['register', 'confirm'],
+							'roles'         => ['?'],
+							'matchCallback' => function ($rule, $action) {
+								if (UserModule::$canRegister)
+									return TRUE;
+
+								return FALSE;
+							}
 						]
 					]
 				],
