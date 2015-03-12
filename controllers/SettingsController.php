@@ -8,7 +8,9 @@
 
 	namespace abhimanyu\user\controllers;
 
+	use abhimanyu\installer\helpers\enums\Configuration as Enum;
 	use abhimanyu\user\models\SettingsForm;
+	use Yii;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
 
@@ -36,7 +38,14 @@
 
 		public function actionIndex()
 		{
-			$model = new SettingsForm();
+			$model              = new SettingsForm();
+			$model->canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION);
+
+			if ($model->load(Yii::$app->request->post())) {
+				Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
+
+				Yii::$app->getSession()->setFlash('success', 'User module settings saved successfully');
+			}
 
 			return $this->render('index', ['model' => $model]);
 		}

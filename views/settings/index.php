@@ -26,7 +26,22 @@
 
 	<div class="panel-body">
 		<?php $form = ActiveForm::begin(); ?>
-		<?= $form->field($model, 'canRegister')->checkbox() ?>
+
+		<div class="form-group">
+			<div class="checkbox">
+				<?= $form->field($model, 'canRegister')
+					->checkbox([
+						           'options' => [
+							           'class' => 'form-control',
+						           ],
+					           ]) ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+		</div>
+
 		<?php $form::end(); ?>
 	</div>
 </div>
