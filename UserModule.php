@@ -17,11 +17,11 @@
 		/**
 		 * @var bool Checks whether the user can register
 		 */
-		public static $canRegister = FALSE;
+		public static $canRegister = 0;
 
 		public function init()
 		{
-			UserModule::$canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION) === 1 ? TRUE : FALSE;
+			UserModule::$canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION);
 
 			$this->setAliases(['@user' => __DIR__]);
 			parent::init();
