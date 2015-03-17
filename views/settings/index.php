@@ -6,7 +6,10 @@
 	 * Time: 09:56
 	 */
 
+	use abhimanyu\installer\helpers\enums\Configuration as Enum;
 	use kartik\alert\AlertBlock;
+	use yii\authclient\clients\GoogleOAuth;
+	use yii\authclient\clients\GoogleOpenId;
 	use yii\helpers\Html;
 	use yii\widgets\ActiveForm;
 
@@ -47,6 +50,25 @@
 						           ],
 					           ]) ?>
 			</div>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'google')->dropDownList(
+				[
+					''                        => NULL,
+					GoogleOAuth::className()  => 'OAuth2',
+					GoogleOpenId::className() => 'OpenId'
+				],
+				[
+					'class'   => 'form-control',
+					'options' => [
+						Yii::$app->config->get(Enum::GOOGLE_AUTH, NULL) =>
+							[
+								'selected' => TRUE
+							]
+					]
+				]
+			) ?>
 		</div>
 
 		<div class="form-group">

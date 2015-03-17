@@ -24,7 +24,7 @@
 
 			$this->createTable(Profile::tableName(), [
 				'id'         => Schema::TYPE_PK,
-				'uid'    => Schema::TYPE_INTEGER . ' NOT NULL UNIQUE',
+				'uid' => Schema::TYPE_INTEGER . ' NOT NULL UNIQUE',
 				'name_first' => Schema::TYPE_STRING . ' NOT NULL',
 				'name_last'  => Schema::TYPE_STRING,
 				'sex' => Schema::TYPE_INTEGER

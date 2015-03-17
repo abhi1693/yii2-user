@@ -14,6 +14,9 @@
 	{
 		public $canRegister;
 		public $canRecoverPassword;
+		public $google;
+		public $facebookClientId;
+		public $facebookClientSecret;
 
 		public function rules()
 		{
@@ -22,7 +25,7 @@
 				['canRegister', 'boolean'],
 
 				// Can Recover Password
-				['canRecoverPassword', 'boolean']
+				['canRecoverPassword', 'boolean'],
 			];
 		}
 
@@ -30,7 +33,8 @@
 		{
 			return [
 				'canRegister'        => 'Allow Registration?',
-				'canRecoverPassword' => 'Allow Password Recovery?'
+				'canRecoverPassword' => 'Allow Password Recovery?',
+				'google'             => 'Google Authentication',
 			];
 		}
 	}
