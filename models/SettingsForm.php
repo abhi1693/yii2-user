@@ -15,8 +15,8 @@
 		public $canRegister;
 		public $canRecoverPassword;
 		public $google;
-		public $facebookClientId;
-		public $facebookClientSecret;
+		public $googleClientId;
+		public $googleClientSecret;
 
 		public function rules()
 		{
@@ -28,7 +28,9 @@
 				['canRecoverPassword', 'boolean'],
 
 				// Google Authentication
-				['google', 'string']
+				['google', 'string'],
+				['googleClientId', 'string'],
+				['googleClientSecret', 'string']
 			];
 		}
 
@@ -38,6 +40,8 @@
 				'canRegister'        => 'Allow Registration?',
 				'canRecoverPassword' => 'Allow Password Recovery?',
 				'google'             => 'Google Authentication',
+				'googleClientId'     => 'Google Client Id',
+				'googleClientSecret' => 'Google Client Secret'
 			];
 		}
 	}

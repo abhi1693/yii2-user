@@ -74,6 +74,30 @@
 		</div>
 
 		<div class="form-group">
+			<?= $form->field($model, 'googleClientId')->textInput([
+				                                                      'value'   => Yii::$app->config->get
+				                                                      (Enum::GOOGLE_CLIENT_ID, NULL),
+				                                                      'class'   => 'form-control',
+				                                                      'options' => [
+					                                                      'autocomplete' => 'off'
+				                                                      ]
+			                                                      ]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'googleClientSecret')->textInput([
+				                                                          'value'   => Yii::$app->config->get
+				                                                          (Enum::GOOGLE_CLIENT_SECRET, NULL),
+				                                                          'class'   => 'form-control',
+				                                                          'options' => [
+					                                                          'autocomplete' => 'off'
+				                                                          ]
+			                                                          ]) ?>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
 			<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
 		</div>
 

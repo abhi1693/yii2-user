@@ -50,9 +50,13 @@
 				Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
 				Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
 				Yii::$app->config->set(Enum::GOOGLE_AUTH, $model->google);
+				Yii::$app->config->set(Enum::GOOGLE_CLIENT_ID, $model->googleClientId);
+				Yii::$app->config->set(Enum::GOOGLE_CLIENT_SECRET, $model->googleClientSecret);
 
-				$config['components']['authClientCollection']['class']                      = Collection::className();
-				$config['components']['authClientCollection']['clients']['google']['class'] = $model->google;
+				$config['components']['authClientCollection']['class']                             = Collection::className();
+				$config['components']['authClientCollection']['clients']['google']['class']        = $model->google;
+				$config['components']['authClientCollection']['clients']['google']['clientId']     = $model->googleClientId;
+				$config['components']['authClientCollection']['clients']['google']['clientSecret'] = $model->googleClientSecret;
 
 
 				Configuration::set($config);
