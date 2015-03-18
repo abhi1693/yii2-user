@@ -49,6 +49,7 @@
 			if ($model->load(Yii::$app->request->post())) {
 				Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
 				Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
+				Yii::$app->config->set(Enum::GOOGLE_AUTH, $model->google);
 
 				$config['components']['authClientCollection']['class']                      = Collection::className();
 				$config['components']['authClientCollection']['clients']['google']['class'] = $model->google;

@@ -52,6 +52,8 @@
 			</div>
 		</div>
 
+		<hr>
+
 		<div class="form-group">
 			<?= $form->field($model, 'google')->dropDownList(
 				[

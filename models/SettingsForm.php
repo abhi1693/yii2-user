@@ -26,6 +26,9 @@
 
 				// Can Recover Password
 				['canRecoverPassword', 'boolean'],
+
+				// Google Authentication
+				['google', 'string']
 			];
 		}
 
