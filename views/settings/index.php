@@ -62,13 +62,7 @@
 					GoogleOpenId::className() => 'OpenId'
 				],
 				[
-					'class'   => 'form-control',
-					'options' => [
-						Yii::$app->config->get(Enum::GOOGLE_AUTH, NULL) =>
-							[
-								'selected' => TRUE
-							]
-					]
+					'class' => 'form-control'
 				]
 			) ?>
 		</div>

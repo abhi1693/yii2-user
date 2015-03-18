@@ -43,6 +43,9 @@
 			$model                     = new SettingsForm();
 			$model->canRegister        = Yii::$app->config->get(Enum::USER_REGISTRATION);
 			$model->canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD);
+			$model->google = Yii::$app->config->get(Enum::GOOGLE_AUTH);
+			$model->googleClientId = Yii::$app->config->get(Enum::GOOGLE_CLIENT_ID);
+			$model->googleClientSecret = Yii::$app->config->get(Enum::GOOGLE_CLIENT_SECRET);
 
 			$config = Configuration::get();
 
