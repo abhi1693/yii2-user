@@ -81,7 +81,7 @@
 				                                                      'options' => [
 					                                                      'autocomplete' => 'off'
 				                                                      ]
-			                                                      ]) ?>
+			                                                      ])->hint('Only required with OAuth2') ?>
 		</div>
 
 		<div class="form-group">
@@ -92,7 +92,7 @@
 				                                                          'options' => [
 					                                                          'autocomplete' => 'off'
 				                                                          ]
-			                                                          ]) ?>
+			                                                          ])->hint('Only required with OAuth2') ?>
 		</div>
 
 		<hr>
