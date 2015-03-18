@@ -36,10 +36,10 @@ Contributing instructions are located in [CONTRIBUTING.md](CONTRIBUTING.md) file
 
 - [x] User Registration
 - [x] Password Retrieval
-- [ ] Account Management
-- [ ] Profile Management
+- [x] Account Management
+- [x] Profile Management
 - [ ] Console Commands
-- [ ] User Management Interface
+- [x] User Management Interface
 - [ ] Documentation
 
 ## Change Log
