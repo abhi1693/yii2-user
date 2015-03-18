@@ -12,6 +12,7 @@
 	use abhimanyu\installer\helpers\enums\Configuration as Enum;
 	use abhimanyu\user\models\SettingsForm;
 	use Yii;
+	use yii\authclient\clients\GoogleOAuth;
 	use yii\authclient\Collection;
 	use yii\filters\AccessControl;
 	use yii\web\Controller;
@@ -52,12 +53,12 @@
 			if ($model->load(Yii::$app->request->post())) {
 				Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
 				Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
-				Yii::$app->config->set(Enum::GOOGLE_AUTH, $model->google);
+				Yii::$app->config->set(Enum::GOOGLE_AUTH, GoogleOAuth::className());
 				Yii::$app->config->set(Enum::GOOGLE_CLIENT_ID, $model->googleClientId);
 				Yii::$app->config->set(Enum::GOOGLE_CLIENT_SECRET, $model->googleClientSecret);
 
 				$config['components']['authClientCollection']['class']                             = Collection::className();
-				$config['components']['authClientCollection']['clients']['google']['class']        = $model->google;
+				$config['components']['authClientCollection']['clients']['google']['class'] = GoogleOAuth::className();
 				$config['components']['authClientCollection']['clients']['google']['clientId']     = $model->googleClientId;
 				$config['components']['authClientCollection']['clients']['google']['clientSecret'] = $model->googleClientSecret;
 

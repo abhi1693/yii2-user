@@ -14,7 +14,6 @@
 	{
 		public $canRegister;
 		public $canRecoverPassword;
-		public $google;
 		public $googleClientId;
 		public $googleClientSecret;
 
@@ -28,7 +27,6 @@
 				['canRecoverPassword', 'boolean'],
 
 				// Google Authentication
-				['google', 'string'],
 				['googleClientId', 'string'],
 				['googleClientSecret', 'string']
 			];
@@ -39,7 +37,6 @@
 			return [
 				'canRegister'        => 'Allow Registration?',
 				'canRecoverPassword' => 'Allow Password Recovery?',
-				'google'             => 'Google Authentication',
 				'googleClientId'     => 'Google Client Id',
 				'googleClientSecret' => 'Google Client Secret'
 			];

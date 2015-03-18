@@ -3,10 +3,14 @@
 	namespace abhimanyu\user\controllers;
 
 	use abhimanyu\user\models\AccountLoginForm;
+	use abhimanyu\user\models\SocialAccount;
 	use abhimanyu\user\UserModule;
 	use Yii;
+	use yii\authclient\AuthAction;
+	use yii\authclient\ClientInterface;
 	use yii\filters\AccessControl;
 	use yii\filters\VerbFilter;
+	use yii\helpers\Url;
 	use yii\web\Controller;
 
 	class AuthController extends Controller
@@ -36,6 +40,36 @@
 					]
 				]
 			];
+		}
+
+		public function actions()
+		{
+			return [
+				'auth' => [
+					'class'           => AuthAction::className(),
+					'successCallback' => [$this, 'authenticate'],
+				]
+			];
+		}
+
+		public function authenticate(ClientInterface $client)
+		{
+			$attributes = $client->getUserAttributes();
+			$provider   = $client->getId();
+			$clientId   = $attributes['id'];
+
+			$model = SocialAccount::find()->where(['provider' => $provider, 'client_id' => $clientId])->one();
+
+			if ($model === NULL) {
+				$model->save(FALSE);
+			}
+
+			if (NULL === ($user = $model->getUser())) {
+				$this->action->successUrl = Url::to(['/user/registration/connect', 'account_id' => $account->id]);
+			} else {
+				//todo fix remember me
+				Yii::$app->user->login($user, NULL);
+			}
 		}
 
 		/**
