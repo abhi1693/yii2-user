@@ -1,5 +1,5 @@
-v0.0.3-dev
-----------
+v0.0.3 [2015-03-24]
+-------------------
 
 - Added translations
 - Added Module Settings (GUI)
@@ -7,7 +7,7 @@ v0.0.3-dev
 - Added Remember Me Duration field
 - Fixed Typos
 
-v0.0.2 [2014-02-13]
+v0.0.2 [2015-02-13]
 -------------------
 
 - Added User Profile
@@ -18,7 +18,7 @@ v0.0.2 [2014-02-13]
 - Added avatar field
 - Added account settings
 
-v0.0.1 [2014-02-09]
+v0.0.1 [2015-02-09]
 -------------------
 
 - Initial Release
