@@ -12,7 +12,7 @@
 		/**
 		 * Module Version
 		 */
-		const VERSION = '0.0.3-dev';
+		const VERSION = '0.0.3';
 
 		/**
 		 * @var bool Checks whether the user can register
