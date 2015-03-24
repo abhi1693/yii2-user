@@ -1,20 +1,21 @@
 <?php
 
-	use kartik\alert\AlertBlock;
-	use yii\helpers\Html;
-	use yii\widgets\ActiveForm;
+use kartik\alert\AlertBlock;
+use yii\authclient\widgets\AuthChoice;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
-	/* @var $model \abhimanyu\user\models\AccountLoginForm */
-	/* @var $canRegister bool */
-	/* @var $canRecoverPassword bool */
-	/* @var $this \yii\web\View */
+/* @var $model \abhimanyu\user\models\AccountLoginForm */
+/* @var $canRegister bool */
+/* @var $canRecoverPassword bool */
+/* @var $this \yii\web\View */
 
-	$this->title = 'Sign In - ' . Yii::$app->name;
+$this->title = 'Sign In - ' . Yii::$app->name;
 
-	echo AlertBlock::widget([
-		                        'delay'           => 5000,
-		                        'useSessionFlash' => TRUE
-	                        ]);
+echo AlertBlock::widget([
+	'delay'           => 5000,
+	'useSessionFlash' => TRUE
+]);
 ?>
 
 <div class="container" style="text-align: center">
@@ -22,9 +23,9 @@
 		<div class="panel-heading"><strong>Please</strong> Sign In!</div>
 		<div class="panel-body">
 			<?php $form = ActiveForm::begin([
-				                                'id'                   => 'login-form',
-				                                'enableAjaxValidation' => FALSE
-			                                ]); ?>
+				'id'                   => 'login-form',
+				'enableAjaxValidation' => FALSE
+			]); ?>
 
 			<div class="form-group">
 				<?= $form->field($model, 'username')->textInput(['class' => 'form-control']) ?>
@@ -43,29 +44,33 @@
 				</div>
 
 				<?php
-					if ($canRecoverPassword == 1) {
-						?>
-						<div class="col-md-8 text-right">
-							<small>
-								<?= Html::a('Forgot your password?',
-								            Yii::$app->urlManager->createUrl('//user/recovery/recover-password')
-								) ?>
-							</small>
-						</div>
-					<?php
-					}
+				if ($canRecoverPassword == 1) {
+					?>
+					<div class="col-md-8 text-right">
+						<small>
+							<?= Html::a('Forgot your password?',
+								Yii::$app->urlManager->createUrl('//user/recovery/recover-password')
+							) ?>
+						</small>
+					</div>
+				<?php
+				}
 				?>
 			</div>
 
 			<?php
-				if ($canRegister == 1) {
-					?>
-					<hr>
-					<?= Html::a('Don\'t have an account?',
-					            Yii::$app->urlManager->createUrl('//user/registration/register')) ?>
-				<?php
-				}
+			if ($canRegister == 1) {
+				?>
+				<hr>
+				<?= Html::a('Don\'t have an account?',
+					Yii::$app->urlManager->createUrl('//user/registration/register')) ?>
+			<?php
+			}
 			?>
+
+			<hr/>
+
+			<?= AuthChoice::widget(['baseAuthUrl' => ['/user/auth/authenticate']]) ?>
 
 			<?php $form::end(); ?>
 		</div>

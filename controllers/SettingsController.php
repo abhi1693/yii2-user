@@ -73,16 +73,22 @@ class SettingsController extends Controller
 		if ($model->load(Yii::$app->request->post())) {
 			Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
 			Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
+
 			Yii::$app->config->set(Enum::GOOGLE_CLIENT_ID, $model->googleClientId);
 			Yii::$app->config->set(Enum::GOOGLE_CLIENT_SECRET, $model->googleClientSecret);
+
 			Yii::$app->config->set(Enum::FACEBOOK_CLIENT_ID, $model->facebookClientId);
 			Yii::$app->config->set(Enum::FACEBOOK_CLIENT_SECRET, $model->facebookClientSecret);
+
 			Yii::$app->config->set(Enum::LINKED_IN_CLIENT_ID, $model->linkedInClientId);
 			Yii::$app->config->set(Enum::LINKED_IN_CLIENT_SECRET, $model->linkedInClientSecret);
+
 			Yii::$app->config->set(Enum::GITHUB_CLIENT_ID, $model->githubClientId);
 			Yii::$app->config->set(Enum::GITHUB_CLIENT_SECRET, $model->githubClientSecret);
+
 			Yii::$app->config->set(Enum::LIVE_CLIENT_ID, $model->liveClientId);
 			Yii::$app->config->set(Enum::LIVE_CLIENT_SECRET, $model->liveClientSecret);
+
 			Yii::$app->config->set(Enum::TWITTER_CONSUMER_KEY, $model->twitterConsumerKey);
 			Yii::$app->config->set(Enum::TWITTER_CONSUMER_SECRET, $model->twitterConsumerSecret);
 
@@ -97,7 +103,8 @@ class SettingsController extends Controller
 				$config['components']['authClientCollection']['clients']['google']['clientId'] = $model->googleClientId;
 				$config['components']['authClientCollection']['clients']['google']['clientSecret'] = $model->googleClientSecret;
 			} else {
-				$config['components']['authClientCollection']['clients']['google'] = NULL;
+				Yii::$app->config->set(Enum::GOOGLE_AUTH, NULL);
+				unset($config['components']['authClientCollection']['clients']['google']);
 			}
 
 			if (!empty($model->facebookClientId) && !empty($model->facebookClientSecret)) {
@@ -109,7 +116,8 @@ class SettingsController extends Controller
 				$config['components']['authClientCollection']['clients']['facebook']['clientId'] = $model->facebookClientId;
 				$config['components']['authClientCollection']['clients']['facebook']['clientSecret'] = $model->facebookClientSecret;
 			} else {
-				$config['components']['authClientCollection']['clients']['facebook'] = NULL;
+				Yii::$app->config->set(Enum::FACEBOOK_AUTH, NULL);
+				unset($config['components']['authClientCollection']['clients']['facebook']);
 			}
 
 			if (!empty($model->linkedInClientId) && !empty($model->linkedInClientSecret)) {
@@ -121,7 +129,8 @@ class SettingsController extends Controller
 				$config['components']['authClientCollection']['clients']['linkedin']['clientId'] = $model->linkedInClientId;
 				$config['components']['authClientCollection']['clients']['linkedin']['clientSecret'] = $model->linkedInClientSecret;
 			} else {
-				$config['components']['authClientCollection']['clients']['linkedin'] = NULL;
+				Yii::$app->config->set(Enum::LINKED_IN_AUTH, NULL);
+				unset($config['components']['authClientCollection']['clients']['linkedin']);
 			}
 
 			if (!empty($model->githubClientId) && !empty($model->githubClientSecret)) {
@@ -133,7 +142,8 @@ class SettingsController extends Controller
 				$config['components']['authClientCollection']['clients']['github']['clientId'] = $model->githubClientId;
 				$config['components']['authClientCollection']['clients']['github']['clientSecret'] = $model->githubClientSecret;
 			} else {
-				$config['components']['authClientCollection']['clients']['github'] = NULL;
+				Yii::$app->config->set(Enum::GITHUB_AUTH, NULL);
+				unset($config['components']['authClientCollection']['clients']['github']);
 			}
 
 
@@ -146,7 +156,8 @@ class SettingsController extends Controller
 				$config['components']['authClientCollection']['clients']['live']['clientId'] = $model->liveClientId;
 				$config['components']['authClientCollection']['clients']['live']['clientSecret'] = $model->liveClientSecret;
 			} else {
-				$config['components']['authClientCollection']['clients']['live'] = NULL;
+				Yii::$app->config->set(Enum::LIVE_AUTH, NULL);
+				unset($config['components']['authClientCollection']['clients']['live']);
 			}
 
 			if (!empty($model->twitterConsumerKey) && !empty($model->twitterConsumerSecret)) {
@@ -158,7 +169,8 @@ class SettingsController extends Controller
 				$config['components']['authClientCollection']['clients']['twitter']['consumerKey'] = $model->twitterConsumerKey;
 				$config['components']['authClientCollection']['clients']['twitter']['consumerSecret'] = $model->twitterConsumerSecret;
 			} else {
-				$config['components']['authClientCollection']['clients']['twitter'] = NULL;
+				Yii::$app->config->set(Enum::TWITTER_AUTH, NULL);
+				unset($config['components']['authClientCollection']['clients']['twitter']);
 			}
 
 			Configuration::set($config);
