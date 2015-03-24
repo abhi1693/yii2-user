@@ -3,6 +3,9 @@ v0.0.3-dev
 
 - Added translations
 - Added Module Settings (GUI)
+- Added Auth Clients
+- Added Remember Me Duration field
+- Fixed Typos
 
 v0.0.2 [2014-02-13]
 -------------------
