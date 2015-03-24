@@ -18,6 +18,14 @@ class SettingsForm extends Model
 	public $googleClientSecret;
 	public $facebookClientId;
 	public $facebookClientSecret;
+	public $linkedInClientId;
+	public $linkedInClientSecret;
+	public $githubClientId;
+	public $githubClientSecret;
+	public $liveClientId;
+	public $liveClientSecret;
+	public $twitterConsumerKey;
+	public $twitterConsumerSecret;
 
 	public function rules()
 	{
@@ -35,18 +43,42 @@ class SettingsForm extends Model
 			// Facebook Authentication
 			['facebookClientId', 'string'],
 			['facebookClientSecret', 'string'],
+
+			// LinkedIn Authentication
+			['linkedInClientId', 'string'],
+			['linkedInClientSecret', 'string'],
+
+			// Github Authentication
+			['githubClientId', 'string'],
+			['githubClientSecret', 'string'],
+
+			// Live Authentication
+			['liveClientId', 'string'],
+			['liveClientSecret', 'string'],
+
+			// Twitter Authentication
+			['twitterConsumerKey', 'string'],
+			['twitterConsumerSecret', 'string'],
 		];
 	}
 
 	public function attributeLabels()
 	{
 		return [
-			'canRegister'          => 'Allow Registration?',
-			'canRecoverPassword'   => 'Allow Password Recovery?',
-			'googleClientId'       => 'Google Client Id',
-			'googleClientSecret'   => 'Google Client Secret',
-			'facebookClientId'     => 'Facebook Client Id',
-			'facebookClientSecret' => 'Facebook Client Secret',
+			'canRegister'           => 'Allow Registration?',
+			'canRecoverPassword'    => 'Allow Password Recovery?',
+			'googleClientId'        => 'Google Client Id',
+			'googleClientSecret'    => 'Google Client Secret',
+			'facebookClientId'      => 'Facebook Client Id',
+			'facebookClientSecret'  => 'Facebook Client Secret',
+			'linkedInClientId'      => 'LinkedIn Client Id',
+			'linkedInClientSecret'  => 'LinkedIn Client Secret',
+			'githubClientId'        => 'Github Client Id',
+			'githubClientSecret'    => 'Github Client Secret',
+			'liveClientId'          => 'Live Client Id',
+			'liveClientSecret'      => 'Live Client Secret',
+			'twitterConsumerKey'    => 'Twitter Consumer Key',
+			'twitterConsumerSecret' => 'Twitter Consumer Secret',
 		];
 	}
 }

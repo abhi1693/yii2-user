@@ -52,6 +52,8 @@ $this->title = 'User Module Settings - ' . Yii::$app->name;
 
 		<hr>
 
+		<h3><strong><?= Html::encode(Yii::t('user', 'Enable Auth Clients?')) ?></strong></h3>
+
 		<div class="form-group">
 			<?= $form->field($model, 'googleClientId')->textInput([
 				'value'   => Yii::$app->config->get
@@ -101,7 +103,103 @@ $this->title = 'User Module Settings - ' . Yii::$app->name;
 		<hr>
 
 		<div class="form-group">
-			<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+			<?= $form->field($model, 'linkedInClientId')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::LINKED_IN_CLIENT_ID, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'linkedInClientSecret')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::LINKED_IN_CLIENT_SECRET, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<?= $form->field($model, 'githubClientId')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::GITHUB_CLIENT_ID, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'githubClientSecret')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::GITHUB_CLIENT_SECRET, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<?= $form->field($model, 'liveClientId')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::LIVE_CLIENT_ID, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'liveClientSecret')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::LIVE_CLIENT_SECRET, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<?= $form->field($model, 'twitterConsumerKey')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::TWITTER_CONSUMER_KEY, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'twitterConsumerSecret')->textInput([
+				'value'   => Yii::$app->config->get
+				(Enum::TWITTER_CONSUMER_SECRET, NULL),
+				'class'   => 'form-control',
+				'options' => [
+					'autocomplete' => 'off'
+				]
+			]) ?>
+		</div>
+
+		<hr>
+
+		<div class="form-group">
+			<?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php $form::end(); ?>
