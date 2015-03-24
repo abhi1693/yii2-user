@@ -26,6 +26,7 @@ class SettingsForm extends Model
 	public $liveClientSecret;
 	public $twitterConsumerKey;
 	public $twitterConsumerSecret;
+	public $rememberMeDuration;
 
 	public function rules()
 	{
@@ -59,6 +60,10 @@ class SettingsForm extends Model
 			// Twitter Authentication
 			['twitterConsumerKey', 'string'],
 			['twitterConsumerSecret', 'string'],
+
+			// Remember Me Duration
+			['rememberMeDuration', 'integer'],
+			['rememberMeDuration', 'required']
 		];
 	}
 
@@ -79,6 +84,7 @@ class SettingsForm extends Model
 			'liveClientSecret'      => 'Live Client Secret',
 			'twitterConsumerKey'    => 'Twitter Consumer Key',
 			'twitterConsumerSecret' => 'Twitter Consumer Secret',
+			'rememberMeDuration'    => 'Remember Me Duration (in seconds)'
 		];
 	}
 }

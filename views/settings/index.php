@@ -50,6 +50,15 @@ $this->title = 'User Module Settings - ' . Yii::$app->name;
 			</div>
 		</div>
 
+		<div class="form-group">
+			<?= $form->field($model, 'rememberMeDuration')->textInput([
+				'options' => [
+					'autocomplete' => 'off',
+					'class'        => 'form-control'
+				]
+			]) ?>
+		</div>
+
 		<hr>
 
 		<h3><strong><?= Html::encode(Yii::t('user', 'Enable Auth Clients?')) ?></strong></h3>

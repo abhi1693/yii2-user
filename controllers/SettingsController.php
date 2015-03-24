@@ -49,6 +49,7 @@ class SettingsController extends Controller
 		$model = new SettingsForm();
 		$model->canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION);
 		$model->canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD);
+		$model->rememberMeDuration = Yii::$app->config->get(Enum::REMEMBER_ME_DURATION);
 
 		$model->googleClientId = Yii::$app->config->get(Enum::GOOGLE_CLIENT_ID);
 		$model->googleClientSecret = Yii::$app->config->get(Enum::GOOGLE_CLIENT_SECRET);
@@ -73,6 +74,7 @@ class SettingsController extends Controller
 		if ($model->load(Yii::$app->request->post())) {
 			Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
 			Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
+			Yii::$app->config->set(Enum::REMEMBER_ME_DURATION, $model->rememberMeDuration);
 
 			Yii::$app->config->set(Enum::GOOGLE_CLIENT_ID, $model->googleClientId);
 			Yii::$app->config->set(Enum::GOOGLE_CLIENT_SECRET, $model->googleClientSecret);
