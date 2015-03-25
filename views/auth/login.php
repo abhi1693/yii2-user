@@ -68,8 +68,6 @@ echo AlertBlock::widget([
 			}
 			?>
 
-			<hr/>
-
 			<?= AuthChoice::widget(['baseAuthUrl' => ['/user/auth/authenticate']]) ?>
 
 			<?php $form::end(); ?>

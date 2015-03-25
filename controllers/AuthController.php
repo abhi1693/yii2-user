@@ -67,8 +67,7 @@ class AuthController extends Controller
 		if (NULL === ($user = $model->getUser())) {
 			$this->action->successUrl = Url::to(['/user/registration/connect', 'account_id' => $model->id]);
 		} else {
-			//todo fix remember me
-			Yii::$app->user->login($user, NULL);
+			Yii::$app->user->login($user, UserModule::$rememberMeDuration);
 		}
 	}
 
