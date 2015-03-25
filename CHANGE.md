@@ -1,3 +1,8 @@
+v0.0.4-dev
+----------
+
+- Fixed small bugs related to remember me duration
+
 v0.0.3 [2015-03-24]
 -------------------
 
