@@ -63,6 +63,10 @@ To enable module you should configure your application as follows:
 		],
 ```
 
+### Updating database schema
+
+Run application `Self-Test` to update the database. 
+
 #### Why feature *X* is missing?
 Because it is not implemented yet or will never be implemented. Check out roadmap.
 
