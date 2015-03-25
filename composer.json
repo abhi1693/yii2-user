@@ -21,7 +21,8 @@
     "kartik-v/yii2-grid": "dev-master",
     "kartik-v/yii2-widget-alert": "*",
     "kartik-v/yii2-widget-fileinput": "*",
-    "abhi1693/yii2-installer": "*"
+    "abhi1693/yii2-installer": "*",
+    "abhi1693/yii2-rbac": "*"
   },
   "autoload": {
     "psr-4": {
