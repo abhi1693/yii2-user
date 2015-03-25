@@ -36,7 +36,7 @@ class SettingsController extends Controller
 				'rules' => [
 					[
 						'allow'   => TRUE,
-						'actions' => ['index'],
+						'actions' => ['index','auth-client'],
 						'roles'   => ['@'],
 					]
 				]
@@ -51,6 +51,20 @@ class SettingsController extends Controller
 		$model->canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD);
 		$model->rememberMeDuration = Yii::$app->config->get(Enum::REMEMBER_ME_DURATION);
 
+		if ($model->load(Yii::$app->request->post())) {
+			Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
+			Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
+			Yii::$app->config->set(Enum::REMEMBER_ME_DURATION, $model->rememberMeDuration);
+
+			Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User module settings saved successfully'));
+		}
+
+		return $this->render('index', ['model' => $model]);
+	}
+
+	public function actionAuthClient()
+	{
+		$model = new SettingsForm();
 		$model->googleClientId = Yii::$app->config->get(Enum::GOOGLE_CLIENT_ID);
 		$model->googleClientSecret = Yii::$app->config->get(Enum::GOOGLE_CLIENT_SECRET);
 
@@ -72,10 +86,6 @@ class SettingsController extends Controller
 		$config = Configuration::get();
 
 		if ($model->load(Yii::$app->request->post())) {
-			Yii::$app->config->set(Enum::USER_REGISTRATION, $model->canRegister);
-			Yii::$app->config->set(Enum::USER_FORGOT_PASSWORD, $model->canRecoverPassword);
-			Yii::$app->config->set(Enum::REMEMBER_ME_DURATION, $model->rememberMeDuration);
-
 			Yii::$app->config->set(Enum::GOOGLE_CLIENT_ID, $model->googleClientId);
 			Yii::$app->config->set(Enum::GOOGLE_CLIENT_SECRET, $model->googleClientSecret);
 
@@ -177,9 +187,9 @@ class SettingsController extends Controller
 
 			Configuration::set($config);
 
-			Yii::$app->getSession()->setFlash('success', 'User module settings saved successfully');
+			Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User module settings saved successfully'));
 		}
 
-		return $this->render('index', ['model' => $model]);
+		return $this->render('authClientSettings', ['model' => $model]);
 	}
 }
