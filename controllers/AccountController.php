@@ -37,7 +37,7 @@
 			$profile = Profile::findOne(['uid' => Yii::$app->user->getId()]);
 
 			if ($profile->load(Yii::$app->request->post()) && $profile->save()) {
-				Yii::$app->getSession()->setFlash('User Profile successfully updated');
+				Yii::$app->getSession()->setFlash(Yii::t('user','User Profile successfully updated'));
 			}
 
 			return $this->render('profile', ['profile' => $profile]);

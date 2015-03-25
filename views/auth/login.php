@@ -40,7 +40,7 @@ echo AlertBlock::widget([
 
 			<div class="row">
 				<div class="col-md-4">
-					<?= Html::submitButton('Sign In', ['class' => 'btn btn-large btn-primary']) ?>
+					<?= Html::submitButton(Yii::t('user', 'Sign In'), ['class' => 'btn btn-large btn-primary']) ?>
 				</div>
 
 				<?php
@@ -48,7 +48,7 @@ echo AlertBlock::widget([
 					?>
 					<div class="col-md-8 text-right">
 						<small>
-							<?= Html::a('Forgot your password?',
+							<?= Html::a(Yii::t('user', 'Forgot your password?'),
 								Yii::$app->urlManager->createUrl('//user/recovery/recover-password')
 							) ?>
 						</small>
@@ -62,7 +62,7 @@ echo AlertBlock::widget([
 			if ($canRegister == 1) {
 				?>
 				<hr>
-				<?= Html::a('Don\'t have an account?',
+				<?= Html::a(Yii::t('user', 'Don\'t have an account?'),
 					Yii::$app->urlManager->createUrl('//user/registration/register')) ?>
 			<?php
 			}

@@ -23,7 +23,7 @@ $this->title = 'User Module Settings - ' . Yii::$app->name;
 ]) ?>
 
 <div class="panel panel-default">
-	<div class="panel-heading"><?= Html::encode($this->title) ?></div>
+	<div class="panel-heading"><?= Yii::t('user', Html::encode($this->title)) ?></div>
 
 	<div class="panel-body">
 		<?php $form = ActiveForm::begin(); ?>
@@ -61,7 +61,7 @@ $this->title = 'User Module Settings - ' . Yii::$app->name;
 
 		<hr>
 
-		<h3><strong><?= Html::encode(Yii::t('user', 'Enable Auth Clients?')) ?></strong></h3>
+		<h3><strong><?= Yii::t('user', Html::encode('Enable Auth Clients?')) ?></strong></h3>
 
 		<div class="form-group">
 			<?= $form->field($model, 'googleClientId')->textInput([
