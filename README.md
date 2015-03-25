@@ -23,7 +23,45 @@ Yii2-User provides a web interface for advanced access control, user management 
 
 ## Documentation
 
-Coming Soon
+### Installation
+
+This document will guide you through the process of installing Yii2-User using **composer**.
+
+Add Yii2-User to the require section of your **composer.json** file:
+
+```php
+{
+    "require": {
+        "abhi1693/yii2-user": "*"
+    }
+}
+```
+
+And run following command to download extension using **composer**:
+
+```bash
+$ composer update
+```
+
+### Configuration
+
+To enable module you should configure your application as follows:
+
+```php
+		'modules'    => [
+		...
+			'user'      => [
+				'class'  => \abhimanyu\user\UserModule::className(),
+			],
+        ],
+		'components' => [
+		...
+			'user'       => [
+				'identityClass' => \abhimanyu\user\models\UserIdentity::className(),
+				'loginUrl'      => ['/user/auth/login'],
+			],
+		],
+```
 
 #### Why feature *X* is missing?
 Because it is not implemented yet or will never be implemented. Check out roadmap.
@@ -40,7 +78,10 @@ Contributing instructions are located in [CONTRIBUTING.md](CONTRIBUTING.md) file
 - [x] Profile Management
 - [ ] Console Commands
 - [x] User Management Interface
-- [ ] Documentation
+- [x] Documentation
+- [x] Compatibility with MySQL
+- [ ] Compatibility with other databases
+- [ ] Compatibility with other templates
 
 ## Change Log
 
