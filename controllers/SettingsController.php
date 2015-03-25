@@ -190,6 +190,6 @@ class SettingsController extends Controller
 			Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User module settings saved successfully'));
 		}
 
-		return $this->render('authClientSettings', ['model' => $model]);
+		return $this->render('authClient', ['model' => $model]);
 	}
 }
