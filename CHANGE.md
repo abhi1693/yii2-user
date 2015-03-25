@@ -2,6 +2,7 @@ v0.0.4-dev
 ----------
 
 - Fixed small bugs related to remember me duration
+- Separated user module settings into different files
 
 v0.0.3 [2015-03-24]
 -------------------
