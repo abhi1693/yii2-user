@@ -78,4 +78,14 @@ class AccountLoginForm extends Model
 	{
 		return $this->validate() ? Yii::$app->user->login($this->getUser(), $this->rememberMe ? UserModule::$rememberMeDuration : 0) : FALSE;
 	}
+
+	public function attributeLabels()
+	{
+		return [
+			'username'   => UserModule::$loginType == User::LOGIN_TYPE_BOTH ?
+				'Email/Username' : (UserModule::$loginType == User::LOGIN_TYPE_EMAIL ? 'Email' : 'Username'),
+			'password'   => 'Password',
+			'rememberMe' => 'Remember Me?'
+		];
+	}
 }
