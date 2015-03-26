@@ -3,6 +3,7 @@ v0.0.4-dev
 
 - Fixed small bugs related to remember me duration
 - Separated user module settings into different files
+- Added User Login Type (Email Only, Username Only, Email and Username Both)
 
 v0.0.3 [2015-03-24]
 -------------------
