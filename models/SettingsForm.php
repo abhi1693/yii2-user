@@ -27,6 +27,7 @@ class SettingsForm extends Model
 	public $twitterConsumerKey;
 	public $twitterConsumerSecret;
 	public $rememberMeDuration;
+	public $loginType;
 
 	public function rules()
 	{
@@ -63,7 +64,11 @@ class SettingsForm extends Model
 
 			// Remember Me Duration
 			['rememberMeDuration', 'integer'],
-			['rememberMeDuration', 'required']
+			['rememberMeDuration', 'required'],
+
+			// Login Type: Email, Username or Both
+			['loginType', 'integer'],
+			['loginType', 'required']
 		];
 	}
 
@@ -84,7 +89,8 @@ class SettingsForm extends Model
 			'liveClientSecret'      => 'Live Client Secret',
 			'twitterConsumerKey'    => 'Twitter Consumer Key',
 			'twitterConsumerSecret' => 'Twitter Consumer Secret',
-			'rememberMeDuration'    => 'Remember Me Duration (in seconds)'
+			'rememberMeDuration'    => 'Remember Me Duration (in seconds)',
+			'loginType'             => 'Login Type'
 		];
 	}
 }

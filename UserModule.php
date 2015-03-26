@@ -29,11 +29,17 @@ class UserModule extends Module
 	 */
 	public static $rememberMeDuration = 0;
 
+	/**
+	 * @var int Login Type
+	 */
+	public static $loginType = 0;
+
 	public function init()
 	{
-		UserModule::$canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION);
-		UserModule::$canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD);
-		UserModule::$rememberMeDuration = Yii::$app->config->get(Enum::REMEMBER_ME_DURATION);
+		UserModule::$canRegister = Yii::$app->config->get(Enum::USER_REGISTRATION, 1);
+		UserModule::$canRecoverPassword = Yii::$app->config->get(Enum::USER_FORGOT_PASSWORD, 1);
+		UserModule::$rememberMeDuration = Yii::$app->config->get(Enum::REMEMBER_ME_DURATION, 1);
+		UserModule::$loginType = Yii::$app->config->get(Enum::USER_LOGIN_TYPE, 0);
 
 		$this->setAliases(['@user' => __DIR__]);
 		parent::init();

@@ -6,7 +6,6 @@
  * Time: 09:56
  */
 
-use abhimanyu\installer\helpers\enums\Configuration as Enum;
 use kartik\alert\AlertBlock;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -57,6 +56,16 @@ $this->title = 'User Module Settings - ' . Yii::$app->name;
 					'class'        => 'form-control'
 				]
 			]) ?>
+		</div>
+
+		<div class="form-group">
+			<?= $form->field($model, 'loginType')->dropDownList(
+				[
+					0 => 'Email and Username',
+					1 => 'Email',
+					2 => 'Username'
+				]
+			) ?>
 		</div>
 
 		<hr>

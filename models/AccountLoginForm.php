@@ -57,7 +57,13 @@ class AccountLoginForm extends Model
 	public function getUser()
 	{
 		if ($this->_user === FALSE) {
-			$this->_user = UserIdentity::findByUsername($this->username);
+			if (UserModule::$loginType == User::LOGIN_TYPE_EMAIL) {
+				$this->_user = UserIdentity::findByEmail($this->username);
+			} elseif (UserModule::$loginType == User::LOGIN_TYPE_USERNAME) {
+				$this->_user = UserIdentity::findByUsername($this->username);
+			} elseif (UserModule::$loginType == User::LOGIN_TYPE_BOTH) {
+				$this->_user = UserIdentity::findByUsernameOrEmail($this->username);
+			}
 		}
 
 		return $this->_user;
