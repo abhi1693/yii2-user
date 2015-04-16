@@ -12,7 +12,7 @@ class UserModule extends Module
 	/**
 	 * Module Version
 	 */
-	const VERSION = '0.0.4-dev';
+	const VERSION = '0.0.4';
 
 	/**
 	 * @var bool Checks whether the user can register
