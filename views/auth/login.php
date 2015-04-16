@@ -1,9 +1,11 @@
 <?php
 
+use abhimanyu\installer\helpers\enums\Configuration as Enum;
 use kartik\alert\AlertBlock;
 use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use Zelenin\yii\widgets\Recaptcha\widgets\Recaptcha;
 
 /* @var $model \abhimanyu\user\models\AccountLoginForm */
 /* @var $canRegister bool */
@@ -37,6 +39,16 @@ echo AlertBlock::widget([
 				<?= $form->field($model, 'rememberMe')->checkbox() ?>
 			</div>
 			<hr>
+
+			<div class="form-group">
+				<?= $form->field($model, 'captcha')->widget(Recaptcha::className(), [
+					'clientOptions' => [
+						'data-sitekey' => Yii::$app->config->get(Enum::RECAPTCHA_SITE_KEY)
+					]
+				]) ?>
+			</div>
+
+			<hr/>
 
 			<div class="row">
 				<div class="col-md-4">

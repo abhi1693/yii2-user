@@ -2,9 +2,11 @@
 
 namespace abhimanyu\user\models;
 
+use abhimanyu\installer\helpers\enums\Configuration as Enum;
 use abhimanyu\user\UserModule;
 use Yii;
 use yii\base\Model;
+use Zelenin\yii\widgets\Recaptcha\validators\RecaptchaValidator;
 
 /**
  * LoginForm is the model behind the login form.
@@ -16,6 +18,7 @@ class AccountLoginForm extends Model
 	public  $password;
 	public  $rememberMe = TRUE;
 	private $_user      = FALSE;
+	public  $captcha;
 
 	/**
 	 * @inheritdoc
@@ -29,6 +32,8 @@ class AccountLoginForm extends Model
 			['rememberMe', 'boolean'],
 			// password is validated by validatePassword()
 			['password', 'validatePassword'],
+			// captcha
+			['captcha', RecaptchaValidator::className(), 'secret' => Yii::$app->config->get(Enum::RECAPTCHA_SECRET)]
 		];
 	}
 

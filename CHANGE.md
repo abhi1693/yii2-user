@@ -1,9 +1,10 @@
-v0.0.4-dev
-----------
+v0.0.4 [2015-04-16]
+-------------------
 
 - Fixed small bugs related to remember me duration
 - Separated user module settings into different files
 - Added User Login Type (Email Only, Username Only, Email and Username Both)
+- Added Google Re-captcha
 
 v0.0.3 [2015-03-24]
 -------------------
